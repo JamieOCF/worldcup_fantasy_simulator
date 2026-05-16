@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+
+{% block main%}
+<div class="menu-page">
+ 
+  {# ════════════════════════════════
+     LEFT — Navigation
+  ════════════════════════════════ #}
+  <aside class="menu-left">
+ 
+    <p class="menu-eyebrow">World Cup 2026 Fantasy</p>
+ 
+    <ul class="menu-nav">
+ 
+      <li class="menu-nav__item">
+        <a href="{{ url_for('new_game') }}" class="menu-nav__link">
+          <span class="menu-nav__icon">✦</span>
+          New Save
+        </a>
+      </li>
+ 
+      <li class="menu-nav__item">
+        {# Disabled when there is no active or completed save #}
+        <a
+          href="{{ url_for('play') if save_state in (1, 2) else '#' }}"
+          class="menu-nav__link {% if save_state == 0 %}menu-nav__link--disabled{% endif %}"
+          {% if save_state == 0 %}aria-disabled="true" tabindex="-1"{% endif %}
+        >
+          <span class="menu-nav__icon">▶</span>
+          Continue
+        </a>
+      </li>
+ 
+      <li class="menu-nav__item">
+        <a href="{{ url_for('history') }}" class="menu-nav__link">
+          <span class="menu-nav__icon">◈</span>
+          History
+        </a>
+      </li>
+ 
+      <li class="menu-nav__item menu-nav__item--sep">
+        <a href="{{ url_for('home_page') }}" class="menu-nav__link">
+          <span class="menu-nav__icon">←</span>
+          Return to Menu
+        </a>
+      </li>
+ 
+    </ul>
+  </aside>
+ 
+  {# ════════════════════════════════
+     RIGHT — Save state panel
+  ════════════════════════════════ #}
+  <section class="menu-right">
+ 
+    {# ── 0: No save exists ── #}
+    {% if save_state == 0 %}
+    <div class="save-empty">
+      <div class="save-empty__glyph">🏟</div>
+      <h2 class="save-empty__heading">No Save Found</h2>
+      <p class="save-empty__sub">Start a new save to begin your tournament.</p>
+    </div>
+ 
+    {# ── 1: Active save in progress ── #}
+    {% elif save_state == 1 %}
+    <div class="save-card">
+ 
+      <span class="save-card__status save-card__status--active">In Progress</span>
+ 
+      <h2 class="save-card__team">{{ save.team_name }}</h2>
+ 
+      <div class="save-card__divider"></div>
+ 
+      <div class="save-stats">
+ 
+        <div class="save-stat">
+          <span class="save-stat__label">Current Round</span>
+          <span class="save-stat__value">{{ save.round }}</span>
+        </div>
+ 
+        <div class="save-stat">
+          <span class="save-stat__label">Points</span>
+          <span class="save-stat__value save-stat__value--gold">{{ save.points }}</span>
+        </div>
+ 
+        <div class="save-stat">
+          <span class="save-stat__label">Eliminated</span>
+          <span class="save-stat__value">
+            {% if save.eliminated %}
+              <span class="elim-badge elim-badge--yes">✕ Yes</span>
+            {% else %}
+              <span class="elim-badge elim-badge--no">✔ No</span>
+            {% endif %}
+          </span>
+        </div>
+ 
+        <div class="save-card__divider save-stat--full"></div>
+ 
+        <div class="save-stat save-stat--full">
+          <span class="save-stat__label">Top Scorer</span>
+          <span class="save-stat__value">{{ save.highest_score_player.name }}</span>
+          <span class="save-stat__sub">{{ save.highest_score_player.points }} pts</span>
+        </div>
+ 
+        <div class="save-stat save-stat--full">
+          <span class="save-stat__label">Lowest Scorer</span>
+          <span class="save-stat__value save-stat__value--danger">{{ save.lowest_score_player.name }}</span>
+          <span class="save-stat__sub">{{ save.lowest_score_player.points }} pts</span>
+        </div>
+ 
+      </div>
+    </div>
+ 
+    {# ── 2: Completed / previous save ── #}
+    {% elif save_state == 2 %}
+    <div class="save-card">
+ 
+      <span class="save-card__status save-card__status--completed">Previous Run</span>
+ 
+      <h2 class="save-card__team">{{ save.team_name }}</h2>
+ 
+      <div class="save-card__divider"></div>
+ 
+      <div class="save-stats">
+ 
+        <div class="save-stat">
+          <span class="save-stat__label">Furthest Round</span>
+          <span class="save-stat__value">{{ save.round }}</span>
+        </div>
+ 
+        <div class="save-stat">
+          <span class="save-stat__label">Final Points</span>
+          <span class="save-stat__value save-stat__value--gold">{{ save.points }}</span>
+        </div>
+ 
+        <div class="save-stat">
+          <span class="save-stat__label">Eliminated</span>
+          <span class="save-stat__value">
+            {% if save.eliminated %}
+              <span class="elim-badge elim-badge--yes">✕ Yes</span>
+            {% else %}
+              <span class="elim-badge elim-badge--no">✔ Champion</span>
+            {% endif %}
+          </span>
+        </div>
+ 
+        <div class="save-card__divider save-stat--full"></div>
+ 
+        <div class="save-stat save-stat--full">
+          <span class="save-stat__label">Top Scorer</span>
+          <span class="save-stat__value">{{ save.highest_score_player.name }}</span>
+          <span class="save-stat__sub">{{ save.highest_score_player.points }} pts</span>
+        </div>
+ 
+        <div class="save-stat save-stat--full">
+          <span class="save-stat__label">Lowest Scorer</span>
+          <span class="save-stat__value save-stat__value--danger">{{ save.lowest_score_player.name }}</span>
+          <span class="save-stat__sub">{{ save.lowest_score_player.points }} pts</span>
+        </div>
+ 
+      </div>
+    </div>
+    {% endif %}
+ 
+  </section>
+ 
+</div>
+{% endblock %}

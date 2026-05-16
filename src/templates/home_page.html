@@ -1,0 +1,309 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <main class="lp">
+
+    <!-- ═══════════════════════════════════════════════════════
+        HERO
+    ════════════════════════════════════════════════════════════ -->
+    <section class="lp-hero">
+        <!-- Pitch-line background decoration -->
+        <div class="lp-hero__pitch" aria-hidden="true">
+        <div class="pitch-lines">
+            <div class="pitch-line pitch-line--centre"></div>
+            <div class="pitch-line pitch-line--circle"></div>
+            <div class="pitch-line pitch-line--left"></div>
+            <div class="pitch-line pitch-line--right"></div>
+            <div class="pitch-line pitch-line--spot pitch-line--spot-l"></div>
+            <div class="pitch-line pitch-line--spot pitch-line--spot-r"></div>
+        </div>
+        </div>
+
+        <div class="lp-hero__content">
+        <div class="lp-hero__eyebrow">
+            <span class="badge badge--gold">World Cup 2026</span>
+            <span class="lp-hero__flag">🇺🇸 🇨🇦 🇲🇽</span>
+        </div>
+
+        <h1 class="lp-hero__title">
+            <span class="lp-hero__title-line lp-hero__title-line--1">Pick.</span>
+            <span class="lp-hero__title-line lp-hero__title-line--2">Simulate.</span>
+            <span class="lp-hero__title-line lp-hero__title-line--3">Conquer.</span>
+        </h1>
+
+        <p class="lp-hero__sub">
+            Build a squad of 25, lock them in, and take on the world.
+            This is a <strong>single-player simulation</strong>.
+            Just you, your squad, and the greatest tournament on earth.
+        </p>
+
+        <div class="lp-hero__cta">
+            <a href="{{ url_for('fantasy') }}" class="btn btn--primary btn--lg">
+            Build Your Squad
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </a>
+            <a href="{{ url_for('news') }}" class="btn btn--ghost">Tournament News</a>
+        </div>
+
+            <div class="lp-hero__stats">
+            <div class="hero-stat">
+            <span class="hero-stat__num">104</span>
+            <span class="hero-stat__label">Matches</span>
+            </div>
+            <div class="hero-stat__divider"></div>
+            <div class="hero-stat">
+            <span class="hero-stat__num">48</span>
+            <span class="hero-stat__label">Nations</span>
+            </div>
+            <div class="hero-stat__divider"></div>
+            <div class="hero-stat">
+            <span class="hero-stat__num">25</span>
+            <span class="hero-stat__label">Player Squads</span>
+            </div>
+            <div class="hero-stat__divider"></div>
+            <div class="hero-stat">
+            <span class="hero-stat__num">3</span>
+            <span class="hero-stat__label">Host Nations</span>
+            </div>
+            </div>
+        </div>
+
+        <div class="lp-hero__scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+        HOW IT WORKS  (3-step flow)
+    ════════════════════════════════════════════════════════════ -->
+    <section class="lp-how">
+        <div class="lp-how__inner">
+        <div class="lp-section-header">
+            <p class="lp-section-header__label">How it works</p>
+            <h2 class="lp-section-header__title">Three steps. One shot at glory.</h2>
+        </div>
+
+        <ol class="lp-steps" role="list">
+
+            <li class="lp-step">
+            <div class="lp-step__num" aria-hidden="true">01</div>
+            <div class="lp-step__body">
+                <h3 class="lp-step__title">Build your squad of 25</h3>
+                <p class="lp-step__text">
+                Pick 11 starters and 14 bench players from any of the 32 World Cup nations.
+                Balance quality, depth, and budget — then lock your selection in. No transfers,
+                no second chances. Your 25 are your 25 for the whole tournament.
+                </p>
+                <div class="lp-step__detail">
+                <span class="badge badge--outline">11 starters</span>
+                <span class="badge badge--outline">14 on the bench</span>
+                <span class="badge badge--outline">5 subs per match</span>
+                </div>
+            </div>
+            </li>
+
+            <li class="lp-step">
+            <div class="lp-step__num" aria-hidden="true">02</div>
+            <div class="lp-step__body">
+                <h3 class="lp-step__title">Simulate the tournament</h3>
+                <p class="lp-step__text">
+                Your squad enters the World Cup bracket and competes against all 32 nations.
+                Goals, assists, clean sheets, and saves earn you points as the simulation
+                plays out match by match, round by round. How far can you go?
+                </p>
+                <div class="lp-step__detail">
+                <span class="badge badge--outline">Group stage → Final</span>
+                <span class="badge badge--outline">Accumulate Points</span>
+                </div>
+            </div>
+            </li>
+
+            <li class="lp-step">
+            <div class="lp-step__num" aria-hidden="true">03</div>
+            <div class="lp-step__body">
+                <h3 class="lp-step__title">Chase your personal best</h3>
+                <p class="lp-step__text">
+                Every run is saved to your history. Progression beats raw points — reaching
+                the semi-finals on 50 points is ranked above crashing out in the quarters
+                on 60. Keep rebuilding, keep experimenting, keep going deeper.
+                </p>
+                <div class="lp-step__detail">
+                <span class="badge badge--gold">Round reached</span>
+                <span class="badge badge--outline">Points</span>
+                </div>
+            </div>
+            </li>
+
+        </ol>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+        FEATURES GRID
+    ════════════════════════════════════════════════════════════ -->
+    <section class="lp-features">
+        <div class="lp-features__inner">
+        <div class="lp-section-header">
+            <p class="lp-section-header__label">The details</p>
+            <h2 class="lp-section-header__title">Everything you need to know.</h2>
+        </div>
+
+        <div class="lp-features__grid">
+
+            <article class="feature-card feature-card--wide">
+            <div class="feature-card__icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <rect x="3" y="5" width="22" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 11h22" stroke="currentColor" stroke-width="2"/>
+                <circle cx="9" cy="17" r="2" fill="currentColor"/>
+                <circle cx="14" cy="17" r="2" fill="currentColor"/>
+                <circle cx="19" cy="17" r="2" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3 class="feature-card__title">Squad locked on day one</h3>
+            <p class="feature-card__body">
+                Unlike traditional fantasy, there are no weekly transfers or captain swaps.
+                You pick your 25-man squad before the tournament starts and that's it —
+                the same players carry you from the group stage all the way to the final.
+                Every choice matters from the very beginning.
+            </p>
+            <div class="badge badge--gold">11 starters · 14 on the bench ·  Max 5 substitutions</div>
+            </article>
+
+            <article class="feature-card">
+            <div class="feature-card__icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <polyline points="4,20 10,12 16,16 24,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="24" cy="6" r="2" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3 class="feature-card__title">Points accumulation</h3>
+            <p class="feature-card__body">
+                Goals, assists, clean sheets, saves, and match ratings all contribute to your
+                tally. The deeper your run, the more matches your players appear in — and
+                the more points you can rack up.
+            </p>
+            </article>
+
+            <article class="feature-card">
+            <div class="feature-card__icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <path d="M14 4l2.5 7H24l-6 4.5 2.5 7L14 19l-6.5 3.5L10 15 4 10.5h7.5L14 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h3 class="feature-card__title">Progression over points</h3>
+            <p class="feature-card__body">
+                Your runs are ranked by round reached first, then points scored. A semi-final
+                exit always outranks a quarter-final exit, no matter the score. Go further,
+                not just harder.
+            </p>
+            </article>
+
+            <article class="feature-card">
+            <div class="feature-card__icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <path d="M6 24V12l8-8 8 8v12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="10" y="16" width="8" height="8" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </div>
+            <h3 class="feature-card__title">Your run history</h3>
+            <p class="feature-card__body">
+                Every attempt is stored. See all your past squads, how far they went,
+                and how many points they accumulated. Track your improvement and figure
+                out what it takes to go one round further.
+            </p>
+            </article>
+
+            <article class="feature-card feature-card--accent">
+            <div class="feature-card__icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <circle cx="14" cy="10" r="5" stroke="currentColor" stroke-width="2"/>
+                <path d="M4 24c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M20 6l2 2M22 6l-2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="feature-card__title">No opponents. No pressure.</h3>
+            <p class="feature-card__body">
+                This is purely single-player. You're not competing against other people —
+                you're competing against the tournament, and against yourself. Play at
+                your own pace, experiment with different squads, and see what works.
+            </p>
+            </article>
+
+        </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+        TOURNAMENT STRIP
+    ════════════════════════════════════════════════════════════ -->
+    <section class="lp-tournament">
+        <div class="lp-tournament__inner">
+        <div class="lp-tournament__text">
+            <p class="lp-section-header__label">The tournament</p>
+            <h2 class="lp-tournament__title">June - July 2026</h2>
+            <p class="lp-tournament__body">
+            FIFA World Cup 2026 is the largest edition in history — 48 teams, three host nations,
+            104 matches. The expanded format means more rounds, more drama, and more chances for
+            your squad to rack up points. Every extra game your team survives is a bigger tally.
+            </p>
+            <a href="{{ url_for('news') }}" class="btn btn--ghost">Tournament News →</a>
+        </div>
+        <div class="lp-tournament__phases">
+            <div class="phase">
+            <span class="phase__num">Group</span>
+            <span class="phase__label">3 matches guaranteed</span>
+            </div>
+            <div class="phase">
+            <span class="phase__num">R32</span>
+            <span class="phase__label">Round of 32</span>
+            </div>
+            <div class="phase">
+            <span class="phase__num">QF</span>
+            <span class="phase__label">Quarter-finals</span>
+            </div>
+            <div class="phase">
+            <span class="phase__num">SF</span>
+            <span class="phase__label">Semi-finals</span>
+            </div>
+            <div class="phase">
+            <span class="phase__num">F</span>
+            <span class="phase__label">The Final</span>
+            </div>
+            <div class="phase phase--gold">
+            <!-- <span class="phase__num">🏆</span> -->
+            <!-- <span class="phase__num">
+                <img src="{{ url_for('static', filename='FIFA-2026-World-Cup-Logo-75.png') }}" alt="WC Logo">
+            </span> -->
+            <span class="phase__label">Champions</span>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+        CTA BANNER
+    ════════════════════════════════════════════════════════════ -->
+    <section class="lp-cta">
+        <div class="lp-cta__inner">
+        <h2 class="lp-cta__title">Your squad. Your run.</h2>
+        <p class="lp-cta__sub">
+            Pick YOUR players and discover their fate.
+        </p>
+        <div class="lp-cta__buttons">
+            <a href="{{ url_for('fantasy') }}" class="btn btn--primary btn--lg">
+            Build Your Squad
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </a>
+            <a href="{{ url_for('history') }}" class="btn btn--ghost">View Past Runs</a>
+        </div>
+        </div>
+    </section>
+
+    </main>
+{% endblock %}

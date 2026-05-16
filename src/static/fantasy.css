@@ -1,0 +1,401 @@
+/* ============================================================
+   fantasy_menu.css
+   Fantasy Menu page — extends styles.css tokens.
+   No scrolling on desktop: full-viewport two-column layout.
+   ============================================================ */
+
+/* ── Layout shell ───────────────────────────────────────────── */
+.menu-page {
+  display: flex;
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle pitch-line texture on the background */
+.menu-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 59px,
+      rgba(255,255,255,0.018) 59px,
+      rgba(255,255,255,0.018) 60px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Left panel — navigation ────────────────────────────────── */
+.menu-left {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-12) var(--space-12) var(--space-12) var(--space-16);
+  width: 42%;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+
+  /* faint vertical gold rule at right edge */
+  box-shadow: 1px 0 0 0 rgba(240, 192, 64, 0.12);
+}
+
+/* Section label above nav items */
+.menu-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  margin-bottom: var(--space-8);
+
+  opacity: 0;
+  transform: translateX(-24px);
+  animation: slide-in 0.5s var(--ease-out) 0.05s forwards;
+}
+
+/* ── Nav items ─── */
+.menu-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.menu-nav__item {
+  opacity: 0;
+  transform: translateX(-48px);
+  animation: slide-in 0.55s var(--ease-out) forwards;
+}
+
+/* staggered delays — each item overlaps with previous */
+.menu-nav__item:nth-child(1) { animation-delay: 0.12s; }
+.menu-nav__item:nth-child(2) { animation-delay: 0.21s; }
+.menu-nav__item:nth-child(3) { animation-delay: 0.30s; }
+.menu-nav__item:nth-child(4) { animation-delay: 0.39s; }
+
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu-nav__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-muted);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  letter-spacing: 0.04em;
+  position: relative;
+  overflow: hidden;
+  transition:
+    color      var(--duration-base) var(--ease-out),
+    background var(--duration-base) var(--ease-out),
+    padding-left var(--duration-base) var(--ease-out);
+}
+
+/* Left accent bar that grows on hover */
+.menu-nav__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--gradient-gold);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-base) var(--ease-snappy);
+}
+
+.menu-nav__link:hover,
+.menu-nav__link:focus-visible {
+  color: var(--color-white);
+  background: rgba(240, 192, 64, 0.06);
+  padding-left: calc(var(--space-6) + 6px);
+}
+
+.menu-nav__link:hover::before,
+.menu-nav__link:focus-visible::before {
+  transform: scaleY(1);
+}
+
+/* Active / current page */
+.menu-nav__link.active {
+  color: var(--color-gold);
+  background: rgba(240, 192, 64, 0.08);
+}
+
+.menu-nav__link.active::before {
+  transform: scaleY(1);
+}
+
+/* Icon inside link */
+.menu-nav__icon {
+  font-size: 1.1rem;
+  opacity: 0.55;
+  transition: opacity var(--duration-fast) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.menu-nav__link:hover .menu-nav__icon {
+  opacity: 1;
+}
+
+/* Disabled/greyed item (e.g. Continue when no save) */
+.menu-nav__link--disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Separator before Return to Menu */
+.menu-nav__item--sep {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Right panel — save info ────────────────────────────────── */
+.menu-right {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+}
+
+/* ── No-save state ──────────────────────────────────────────── */
+.save-empty {
+  text-align: center;
+  opacity: 0;
+  animation: fade-up 0.6s var(--ease-out) 0.5s forwards;
+}
+
+.save-empty__glyph {
+  font-size: 3.5rem;
+  margin-bottom: var(--space-6);
+  opacity: 0.25;
+}
+
+.save-empty__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.06em;
+  color: var(--color-faint);
+  margin-bottom: var(--space-2);
+}
+
+.save-empty__sub {
+  font-size: var(--text-sm);
+  color: var(--color-faint);
+}
+
+/* ── Save card ──────────────────────────────────────────────── */
+.save-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-lg), var(--shadow-inset);
+  position: relative;
+  overflow: hidden;
+
+  opacity: 0;
+  animation: fade-up 0.55s var(--ease-out) 0.45s forwards;
+}
+
+/* top gold shimmer line */
+.save-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gradient-gold);
+  opacity: 0.7;
+}
+
+/* Status label — ACTIVE / COMPLETED */
+.save-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.save-card__status--active {
+  background: rgba(56, 201, 122, 0.12);
+  border: 1px solid rgba(56, 201, 122, 0.3);
+  color: var(--color-success);
+}
+
+/* pulsing dot for active */
+.save-card__status--active::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.save-card__status--completed {
+  background: rgba(240, 192, 64, 0.1);
+  border: 1px solid rgba(240, 192, 64, 0.25);
+  color: var(--color-gold-muted);
+}
+
+/* Team name */
+.save-card__team {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  line-height: 1;
+  margin-bottom: var(--space-6);
+}
+
+/* Divider */
+.save-card__divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border) 30%,
+    var(--color-border) 70%,
+    transparent
+  );
+  margin: var(--space-4) 0;
+}
+
+/* Stats grid */
+.save-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4) var(--space-6);
+}
+
+.save-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.save-stat--full {
+  grid-column: 1 / -1;
+}
+
+.save-stat__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.save-stat__value {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semi);
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+.save-stat__value--gold {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-gold);
+  letter-spacing: 0.04em;
+}
+
+.save-stat__value--danger {
+  color: var(--color-danger);
+}
+
+.save-stat__value--success {
+  color: var(--color-success);
+}
+
+/* Player sub-line (score) */
+.save-stat__sub {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-top: 1px;
+}
+
+/* Eliminated badge inside the card */
+.elim-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.elim-badge--yes {
+  color: var(--color-danger);
+}
+
+.elim-badge--no {
+  color: var(--color-success);
+}
+
+/* ── Shared fade-up keyframe ────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .menu-page {
+    flex-direction: column;
+    height: auto;
+    overflow: auto;
+  }
+
+  .menu-left {
+    width: 100%;
+    padding: var(--space-8) var(--space-6);
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: none;
+    justify-content: flex-start;
+  }
+
+  .menu-right {
+    padding: var(--space-8) var(--space-6);
+    justify-content: flex-start;
+  }
+
+  .save-card {
+    max-width: 100%;
+  }
+}

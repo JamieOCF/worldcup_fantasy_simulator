@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+    <main class="history-page">
+
+    {# ── Hero ── #}
+    <section class="history-hero">
+        <span class="history-hero__eyebrow">World Cup 2026 Fantasy</span>
+        <h1 class="history-hero__title">Hall of Fame</h1>
+        <hr class="history-hero__rule">
+    </section>
+
+    {# ── Summary stats ── #}
+    <div class="history-stats">
+        <div class="history-stat">
+        <div class="history-stat__value">{{ total_runs }}</div>
+        <div class="history-stat__label">Attempts</div>
+        </div>
+        <div class="history-stat">
+        <div class="history-stat__value">{{ best_round }}</div>
+        <div class="history-stat__label">Best Round</div>
+        </div>
+        <div class="history-stat">
+        <div class="history-stat__value">{{ best_points }}</div>
+        <div class="history-stat__label">Top Points</div>
+        </div>
+    </div>
+
+    {# ── Leaderboard ── #}
+    {% if history %}
+    <div class="leaderboard-wrap">
+        <table class="leaderboard">
+        <thead>
+            <tr>
+            <th class="col-rank">#</th>
+            <th>Team</th>
+            <th>Furthest Round</th>
+            <th class="col-pts">Points</th>
+            <th>Top Scorer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in history %}
+            <tr
+            class="rank-{{ entry.rank if entry.rank <= 3 else 'other' }}"
+            style="animation-delay: {{ (loop.index0 * 0.06)|round(2) }}s"
+            >
+            {# ── Rank ── #}
+            <td class="col-rank">
+                {% if entry.rank <= 3 %}
+                <span class="rank-badge rank-badge--{{ entry.rank }}">{{ entry.rank }}</span>
+                {% else %}
+                <span class="rank-badge rank-badge--default">{{ entry.rank }}</span>
+                {% endif %}
+            </td>
+
+            {# ── Team name ── #}
+            <td>
+                <span class="team-name">{{ entry.team_name }}</span>
+            </td>
+
+            {# ── Furthest round ── #}
+            <td>
+                <span class="round-pill" data-round="{{ entry.furthest_round }}">
+                {{ entry.furthest_round }}
+                </span>
+            </td>
+
+            {# ── Points ── #}
+            <td class="col-pts">
+                <span class="points-value">{{ entry.total_points }}</span>
+            </td>
+
+            {# ── Top scorer ── #}
+            <td>
+                <span class="scorer-name">{{ entry.top_scorer.name }}</span>
+                <span class="scorer-pts">{{ entry.top_scorer.points }} pts</span>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    {# ── Empty state ── #}
+    <div class="history-empty">
+        <h2 class="history-empty__heading">No runs yet</h2>
+        <p class="history-empty__sub">Complete your first tournament to start the record books.</p>
+    </div>
+    {% endif %}
+
+    </main>
+{% endblock %}

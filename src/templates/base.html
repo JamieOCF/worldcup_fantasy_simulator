@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WC26</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename=style) }}">
+    <link rel="icon" href="{{ url_for('static', filename='') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('home_page') }}">
+            <img src="{{ url_for('static', filename='FIFA-2026-World-Cup-Logo-75.png') }}" alt="WC Logo">
+        </a>
+        <nav>
+            <a href="{{ url_for('home_page') }}">Home</a>
+            <a href="{{ url_for('fantasy') }}">Fantasy</a>
+            <a href="{{ url_for('history') }}">History</a>
+            <a href="{{ url_for('settings') }}">Settings</a>
+            <a href="{{ url_for('news') }}">News</a>
+        </nav>
+    </header>
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+</body>
+</html>

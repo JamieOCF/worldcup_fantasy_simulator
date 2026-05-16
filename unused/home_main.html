@@ -1,0 +1,217 @@
+<main class="lp">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════════ -->
+  <section class="lp-hero">
+    <!-- Animated pitch-line background -->
+    <div class="lp-hero__pitch" aria-hidden="true">
+      <div class="pitch-lines">
+        <div class="pitch-line pitch-line--centre"></div>
+        <div class="pitch-line pitch-line--circle"></div>
+        <div class="pitch-line pitch-line--left"></div>
+        <div class="pitch-line pitch-line--right"></div>
+        <div class="pitch-line pitch-line--spot pitch-line--spot-l"></div>
+        <div class="pitch-line pitch-line--spot pitch-line--spot-r"></div>
+      </div>
+    </div>
+
+    <div class="lp-hero__content">
+      <div class="lp-hero__eyebrow">
+        <span class="badge badge--gold">World Cup 2026</span>
+        <span class="lp-hero__flag">🇺🇸 🇨🇦 🇲🇽</span>
+      </div>
+
+      <h1 class="lp-hero__title">
+        <span class="lp-hero__title-line lp-hero__title-line--1">Build.</span>
+        <span class="lp-hero__title-line lp-hero__title-line--2">Compete.</span>
+        <span class="lp-hero__title-line lp-hero__title-line--3">Conquer.</span>
+      </h1>
+
+      <p class="lp-hero__sub">
+        The ultimate fantasy football experience for the biggest tournament on the planet.
+        Draft real players, track live stats, and go head-to-head with friends across
+        every match of <strong>FIFA World Cup 2026</strong>.
+      </p>
+
+      <div class="lp-hero__cta">
+        <a href="{{ url_for('fantasy') }}" class="btn btn--primary btn--lg">
+          Build Your Squad
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="{{ url_for('news') }}" class="btn btn--ghost">Latest News</a>
+      </div>
+
+      <div class="lp-hero__stats">
+        <div class="hero-stat">
+          <span class="hero-stat__num">104</span>
+          <span class="hero-stat__label">Matches</span>
+        </div>
+        <div class="hero-stat__divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat__num">48</span>
+          <span class="hero-stat__label">Nations</span>
+        </div>
+        <div class="hero-stat__divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat__num">25</span>
+          <span class="hero-stat__label">Player Squads</span>
+        </div>
+        <div class="hero-stat__divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat__num">3</span>
+          <span class="hero-stat__label">Host Nations</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-hero__scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FEATURES
+  ════════════════════════════════════════════════════════════ -->
+  <section class="lp-features">
+    <div class="lp-features__inner">
+      <div class="lp-section-header">
+        <p class="lp-section-header__label">How it works</p>
+        <h2 class="lp-section-header__title">Your game. Your squad. Your glory.</h2>
+      </div>
+
+      <div class="lp-features__grid">
+
+        <article class="feature-card feature-card--wide">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <circle cx="14" cy="10" r="5" stroke="currentColor" stroke-width="2"/>
+              <path d="M4 24c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Draft Your Squad</h3>
+          <p class="feature-card__body">
+            Pick 15 real players from any of the 32 nations. Balance star forwards with reliable
+            defenders and stay within your budget. Every selection matters.
+          </p>
+          <div class="feature-card__tag">11 starters · 4 subs</div>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <polyline points="4,20 10,12 16,16 24,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="24" cy="6" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Live Points</h3>
+          <p class="feature-card__body">
+            Goals, assists, clean sheets, saves — your tally updates in real time as matches
+            unfold across the USA, Canada, and Mexico.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <path d="M14 4l2.5 7H24l-6 4.5 2.5 7L14 19l-6.5 3.5L10 15 4 10.5h7.5L14 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Leagues & Rivals</h3>
+          <p class="feature-card__body">
+            Create a private league, invite your mates, and fight for the top of the table
+            over every group stage and knockout round.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="2"/>
+              <rect x="16" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="2"/>
+              <rect x="4" y="16" width="8" height="8" rx="1" stroke="currentColor" stroke-width="2"/>
+              <rect x="16" y="16" width="8" height="8" rx="1" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Latest News</h3>
+          <p class="feature-card__body">
+            Stay sharp with injury updates, squad announcements, and tournament news so
+            your transfers are always one step ahead.
+          </p>
+        </article>
+
+        <article class="feature-card feature-card--accent">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <path d="M8 6h12v10a6 6 0 01-12 0V6z" stroke="currentColor" stroke-width="2"/>
+              <path d="M8 10H4M20 10h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M14 22v3M10 25h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">Captain &amp; Vice</h3>
+          <p class="feature-card__body">
+            Armband your captain for double points. Pick your vice wisely — if your captain
+            doesn't play, the armband passes automatically.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TOURNAMENT STRIP
+  ════════════════════════════════════════════════════════════ -->
+  <section class="lp-tournament">
+    <div class="lp-tournament__inner">
+      <div class="lp-tournament__text">
+        <p class="lp-section-header__label">The tournament</p>
+        <h2 class="lp-tournament__title">June – July 2026</h2>
+        <p class="lp-tournament__body">
+          Spanning three countries and six weeks, FIFA World Cup 2026 is the largest
+          edition ever — the expanded 48-team format means more drama, more upsets,
+          and more fantasy points on the line. Don't miss a match.
+        </p>
+        <a href="{{ url_for('news') }}" class="btn btn--ghost">Tournament Info →</a>
+      </div>
+      <div class="lp-tournament__phases">
+        <div class="phase">
+          <span class="phase__num">48</span>
+          <span class="phase__label">Group stage matches</span>
+        </div>
+        <div class="phase">
+          <span class="phase__num">16</span>
+          <span class="phase__label">Round of 32</span>
+        </div>
+        <div class="phase">
+          <span class="phase__num">8</span>
+          <span class="phase__label">Quarter-finals</span>
+        </div>
+        <div class="phase">
+          <span class="phase__num">1</span>
+          <span class="phase__label">Champion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CTA BANNER
+  ════════════════════════════════════════════════════════════ -->
+  <section class="lp-cta">
+    <div class="lp-cta__inner">
+      <h2 class="lp-cta__title">Ready to play?</h2>
+      <p class="lp-cta__sub">The tournament is coming. Your squad won't pick itself.</p>
+      <a href="{{ url_for('fantasy') }}" class="btn btn--primary btn--lg">
+        Start Playing Free
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</main>

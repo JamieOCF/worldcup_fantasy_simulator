@@ -1,0 +1,1694 @@
+{
+    "Group_A": {
+        "Mexico": {
+            "starting_xi": {
+                "Goalkeeper": "L. Malagón",
+                "Defenders": [
+                    "O. Pineda",
+                    "C. Montes",
+                    "J. Gallardo",
+                    "J. Vásquez"
+                ],
+                "Midfielders": [
+                    "J. Quiñones",
+                    "E. Álvarez",
+                    "R. Alvarado"
+                ],
+                "Forwards": [
+                    "S. Giménez",
+                    "G. Berterame",
+                    "A. Vega"
+                ]
+            },
+            "bench": [
+                "E. Sánchez",
+                "H. Lozano",
+                "R. Jiménez",
+                "D. Lainez",
+                "C. Rodríguez",
+                "M. Ruiz",
+                "J. Araujo",
+                "J. Sánchez",
+                "E. Lira",
+                "C. Huerta",
+                "J. Orozco Chiquete",
+                "M. Chávez",
+                "J. Sánchez Purata",
+                "R. Huescas"
+            ]
+        },
+        "South_Africa": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "S. Ngezana",
+                    "G. Links",
+                    "B. Hlongwane",
+                    "I. Okon"
+                ],
+                "Midfielders": [
+                    "L. Foster",
+                    "K. Kodisang",
+                    "Y. Maart"
+                ],
+                "Forwards": [
+                    "S. Campbell",
+                    "M. Nkota",
+                    "A. van Wyk"
+                ]
+            },
+            "bench": [
+                "L. Le Roux",
+                "S. Sithole",
+                "S. Kabini",
+                "K. Chauke",
+                "O. Makhanya",
+                "E. Mokwana"
+            ]
+        },
+        "Korea_Republic": {
+            "starting_xi": {
+                "Goalkeeper": "Jo Hyeon Woo",
+                "Defenders": [
+                    "Kim Min Jae",
+                    "Kim Bong Soo",
+                    "Park Seung Wook",
+                    "Park Jin Seob"
+                ],
+                "Midfielders": [
+                    "H. Son",
+                    "Lee Kang In",
+                    "Lee Jae Sung"
+                ],
+                "Forwards": [
+                    "Lee Dong Kyeong",
+                    "Hwang Hee Chan",
+                    "Joo Min Kyu"
+                ]
+            },
+            "bench": [
+                "Hwang In Beom",
+                "Song Bum Keun",
+                "Lee Chang Geun",
+                "Hong Hyeon Seok",
+                "Jeong Woo Yeong",
+                "Paik Seung Ho",
+                "Jeon Jin Woo",
+                "Oh Hyeon Gyu",
+                "Lee Ho Jae",
+                "Bae Jun Ho",
+                "Eom Ji Sung",
+                "Kim Jin Kyu",
+                "Hwang Ui Jo",
+                "Ko Seung Beom"
+            ]
+        },
+        "Czechia": {
+            "starting_xi": {
+                "Goalkeeper": "J. Staněk",
+                "Defenders": [
+                    "L. Krejčí",
+                    "T. Holeš",
+                    "M. Vitík",
+                    "D. Zima"
+                ],
+                "Midfielders": [
+                    "L. Provod",
+                    "T. Souček",
+                    "A. Hložek"
+                ],
+                "Forwards": [
+                    "P. Schick",
+                    "V. Černý",
+                    "T. Chorý"
+                ]
+            },
+            "bench": [
+                "P. Šulc",
+                "M. Sadílek",
+                "M. Jedlička",
+                "A. Kinský",
+                "A. Barák",
+                "M. Kovář",
+                "P. Bucha",
+                "L. Červ",
+                "M. Šín",
+                "A. Král",
+                "J. Pavlenka",
+                "V. Kušej",
+                "D. Douděra",
+                "P. Ševčík"
+            ]
+        }
+    },
+    "Group_B": {
+        "Canada": {
+            "starting_xi": {
+                "Goalkeeper": "M. Borjan",
+                "Defenders": [
+                    "A. Davies",
+                    "A. Johnston",
+                    "Stephen Eustáquio",
+                    "M. Bombito"
+                ],
+                "Midfielders": [
+                    "T. Buchanan",
+                    "I. Koné",
+                    "L. Millar"
+                ],
+                "Forwards": [
+                    "J. David",
+                    "C. Larin",
+                    "P. David"
+                ]
+            },
+            "bench": [
+                "D. Cornelius",
+                "D. St. Clair",
+                "R. Laryea",
+                "T. Bair",
+                "K. Miller",
+                "J. Osorio",
+                "N. Sigur",
+                "T. Oluwaseyi",
+                "M. Crépeau",
+                "I. Ugbo",
+                "S. Piette",
+                "J. Hoilett",
+                "T. Corbeanu",
+                "J. Waterman"
+            ]
+        },
+        "Bosnia_and_Herzegovina": {
+            "starting_xi": {
+                "Goalkeeper": "N. Vasilj",
+                "Defenders": [
+                    "S. Kolašinac",
+                    "A. Ahmedhodžić",
+                    "A. Dedić",
+                    "A. Barišić"
+                ],
+                "Midfielders": [
+                    "E. Višća",
+                    "H. Hajradinović",
+                    "M. Stevanović"
+                ],
+                "Forwards": [
+                    "E. Džeko",
+                    "E. Demirović",
+                    "H. Tabaković"
+                ]
+            },
+            "bench": [
+                "A. Hadžiahmetović",
+                "A. Memić",
+                "D. Huseinbašić",
+                "A. Gigović",
+                "M. Đurić",
+                "E. Sarić",
+                "A. Hasić",
+                "J. Gazibegović",
+                "A. Begović",
+                "Kodro",
+                "D. Hadžikadunić",
+                "V. Kovacević",
+                "T. Muharemović",
+                "S. Baždar"
+            ]
+        },
+        "Qatar": {
+            "starting_xi": {
+                "Goalkeeper": "M. Barsham",
+                "Defenders": [
+                    "B. Khoukhi",
+                    "A. Hassan",
+                    "Lucas Mendes",
+                    "B. Al Rawi"
+                ],
+                "Midfielders": [
+                    "A. Afif",
+                    "Guilherme",
+                    "Edmilson Junior"
+                ],
+                "Forwards": [
+                    "A. Ali",
+                    "H. Al Haydos",
+                    "A. Al Ganehi"
+                ]
+            },
+            "bench": [
+                "K. Boudiaf",
+                "A. Hatem",
+                "Pedro Miguel",
+                "A. Fathi",
+                "T. Salman",
+                "H. Ahmed",
+                "M. Muntari",
+                "A. Madibo",
+                "Y. Abdurisag",
+                "S. Al Sheeb",
+                "M. Mashaal",
+                "S. Zakaria",
+                "J. Gaber",
+                "A. Al Yazidi"
+            ]
+        },
+        "Switzerland": {
+            "starting_xi": {
+                "Goalkeeper": "Y. Sommer",
+                "Defenders": [
+                    "F. Schär",
+                    "M. Akanji",
+                    "N. Elvedi",
+                    "C. Zesiger"
+                ],
+                "Midfielders": [
+                    "G. Xhaka",
+                    "D. Zakaria",
+                    "R. Freuler"
+                ],
+                "Forwards": [
+                    "D. Ndoye",
+                    "X. Shaqiri",
+                    "B. Embolo"
+                ]
+            },
+            "bench": [
+                "G. Kobel",
+                "P. Köhn",
+                "A. Jashari",
+                "R. Bürki",
+                "Y. Mvogo",
+                "N. Okafor",
+                "J. Omlin",
+                "D. Sow",
+                "F. Ugrinić",
+                "J. Lotomba",
+                "R. Vargas",
+                "V. Sierro",
+                "M. Muheim",
+                "U. Garcia"
+            ]
+        }
+    },
+    "Group_C": {
+        "Brazil": {
+            "starting_xi": {
+                "Goalkeeper": "Alisson",
+                "Defenders": [
+                    "Gabriel",
+                    "Marquinhos",
+                    "Bremer",
+                    "Éder Militão"
+                ],
+                "Midfielders": [
+                    "Raphinha",
+                    "Vini Jr.",
+                    "Bruno Guimarães"
+                ],
+                "Forwards": [
+                    "Rodrygo",
+                    "Matheus Cunha",
+                    "Savinho"
+                ]
+            },
+            "bench": [
+                "Ederson",
+                "Murillo",
+                "Ronaldo Cabrais",
+                "Malcom",
+                "Éderson",
+                "Fabinho",
+                "Lucas Mantela",
+                "Joelinton",
+                "Ibañez",
+                "Antony",
+                "David Neres",
+                "Galeno",
+                "Nailton Suzuki",
+                "Lucas Perri"
+            ]
+        },
+        "Morocco": {
+            "starting_xi": {
+                "Goalkeeper": "Y. Bounou",
+                "Defenders": [
+                    "A. Hakimi",
+                    "N. Aguerd",
+                    "N. Mazraoui",
+                    "R. Saïss"
+                ],
+                "Midfielders": [
+                    "Brahim",
+                    "I. Saibari",
+                    "A. Hamdallah"
+                ],
+                "Forwards": [
+                    "Y. En-Nesyri",
+                    "A. El Kaabi",
+                    "H. Ziyech"
+                ]
+            },
+            "bench": [
+                "A. Adli",
+                "S. Rahimi",
+                "S. Amrabat",
+                "Abde",
+                "O. El Hilali",
+                "M. Batna",
+                "N. El Aynaoui",
+                "B. El Khannouss",
+                "A. Ounahi",
+                "E. Ben Seghir",
+                "O. Sahraoui",
+                "Z. El Ouahdi",
+                "S. Diop",
+                "A. Harit"
+            ]
+        },
+        "Haiti": {
+            "starting_xi": {
+                "Goalkeeper": "J. Placide",
+                "Defenders": [
+                    "R. Adé",
+                    "C. Arcus",
+                    "J. Duverne",
+                    "M. Expérience"
+                ],
+                "Midfielders": [
+                    "J. Bellegarde",
+                    "D. Jean Jacques",
+                    "Fafà Picault"
+                ],
+                "Forwards": [
+                    "F. Pierrot",
+                    "D. Etienne Jr.",
+                    "D. Louicius"
+                ]
+            },
+            "bench": [
+                "A. Guboglo",
+                "B. Joseph",
+                "W. Paugain"
+            ]
+        },
+        "Scotland": {
+            "starting_xi": {
+                "Goalkeeper": "A. Gunn",
+                "Defenders": [
+                    "A. Robertson",
+                    "J. McGinn",
+                    "K. Tierney",
+                    "S. McKenna"
+                ],
+                "Midfielders": [
+                    "S. McTominay",
+                    "C. McGregor",
+                    "R. Christie"
+                ],
+                "Forwards": [
+                    "R. Gauld",
+                    "C. Adams",
+                    "O. McBurnie"
+                ]
+            },
+            "bench": [
+                "L. Ferguson",
+                "T. Cairney",
+                "B. Gilmour",
+                "G. Taylor",
+                "A. Hickey",
+                "J. Hendry",
+                "B. Bannan",
+                "J. Doig",
+                "J. Souttar",
+                "J. Holsgrove",
+                "L. Shankland",
+                "O. Burke",
+                "L. Morgan",
+                "L. McCowan"
+            ]
+        }
+    },
+    "Group_D": {
+        "United_States": {
+            "starting_xi": {
+                "Goalkeeper": "M. Turner",
+                "Defenders": [
+                    "A. Robinson",
+                    "S. Dest",
+                    "C. Carter-Vickers",
+                    "C. Richards"
+                ],
+                "Midfielders": [
+                    "C. Pulisic",
+                    "M. Tillman",
+                    "Johnny Cardoso"
+                ],
+                "Forwards": [
+                    "F. Balogun",
+                    "R. Pepi",
+                    "A. Zendejas"
+                ]
+            },
+            "bench": [
+                "T. Adams",
+                "W. McKennie",
+                "T. Weah",
+                "D. Nagbe",
+                "T. Tessmann",
+                "W. Zimmerman",
+                "D. Mihailovic",
+                "P. Aaronson",
+                "B. White",
+                "J. Sargent",
+                "G. Reyna",
+                "M. McKenzie",
+                "J. Scally",
+                "B. Aaronson"
+            ]
+        },
+        "Paraguay": {
+            "starting_xi": {
+                "Goalkeeper": "C. Coronel",
+                "Defenders": [
+                    "O. Alderete",
+                    "D. Viera",
+                    "A. Cubas",
+                    "A. Sández"
+                ],
+                "Midfielders": [
+                    "Kaku",
+                    "M. Almirón",
+                    "R. Sánchez"
+                ],
+                "Forwards": [
+                    "A. Sanabria",
+                    "A. Arce",
+                    "G. Ávalos"
+                ]
+            },
+            "bench": [
+                "M. Rojas",
+                "L. Melgarejo",
+                "J. Enciso",
+                "C. González",
+                "S. Arzamendia",
+                "C. Domínguez",
+                "G. Velázquez",
+                "M. Galarza",
+                "D. González",
+                "D. Gómez",
+                "W. Riveros",
+                "M. Espinoza",
+                "I. Leguizamón",
+                "Ó. Cardozo"
+            ]
+        },
+        "Australia": {
+            "starting_xi": {
+                "Goalkeeper": "M. Ryan",
+                "Defenders": [
+                    "H. Souttar",
+                    "C. Burgess",
+                    "A. Circati",
+                    "A. Grant"
+                ],
+                "Midfielders": [
+                    "J. Irvine",
+                    "C. Goodwin",
+                    "M. Luongo"
+                ],
+                "Forwards": [
+                    "R. McGree",
+                    "M. Boyle",
+                    "N. Milanović"
+                ]
+            },
+            "bench": [
+                "C. Devlin",
+                "K. Rowles",
+                "B. Borrello",
+                "A. Carter",
+                "A. O'Neill",
+                "N. D'Agostino",
+                "P. Izzo",
+                "M. Leckie",
+                "K. Trewin",
+                "A. Taggart",
+                "G. Stensness",
+                "J. Maclaren",
+                "R. Teague",
+                "J. Bos"
+            ]
+        },
+        "Türkiye": {
+            "starting_xi": {
+                "Goalkeeper": "U. Çakır",
+                "Defenders": [
+                    "A. Bardakcı",
+                    "F. Kadıoğlu",
+                    "M. Demiral",
+                    "Ç. Söyüncü"
+                ],
+                "Midfielders": [
+                    "H. Çalhanoğlu",
+                    "O. Kökçü",
+                    "A. Güler"
+                ],
+                "Forwards": [
+                    "B. Yılmaz",
+                    "K. Aktürkoğlu",
+                    "K. Yıldız"
+                ]
+            },
+            "bench": [
+                "M. Günok",
+                "Y. Akgün",
+                "İ. Kahveci",
+                "E. Ünal",
+                "B. Özer",
+                "İ. Yüksek",
+                "O. Aydın",
+                "A. Karazor",
+                "K. Ayhan",
+                "Z. Çelik",
+                "O. Yokuşlu",
+                "C. Ünder",
+                "İ. Eğribayat",
+                "A. Bayındır"
+            ]
+        }
+    },
+    "Group_E": {
+        "Germany": {
+            "starting_xi": {
+                "Goalkeeper": "M. ter Stegen",
+                "Defenders": [
+                    "J. Kimmich",
+                    "J. Tah",
+                    "A. Rüdiger",
+                    "N. Schlotterbeck"
+                ],
+                "Midfielders": [
+                    "F. Wirtz",
+                    "J. Musiala",
+                    "A. Stiller"
+                ],
+                "Forwards": [
+                    "L. Sané",
+                    "J. Burkardt",
+                    "K. Havertz"
+                ]
+            },
+            "bench": [
+                "M. Neuer",
+                "İ. Gündoğan",
+                "O. Baumann",
+                "J. Brandt",
+                "L. Goretzka",
+                "M. Ginter",
+                "W. Anton",
+                "F. Nmecha",
+                "R. Koch",
+                "S. Gnabry",
+                "M. Mittelstädt",
+                "D. Raum",
+                "E. Can",
+                "M. Götze"
+            ]
+        },
+        "Curacao": {
+            "starting_xi": {
+                "Goalkeeper": "T. Bodak",
+                "Defenders": [
+                    "D. Chirino",
+                    "S. Sambo",
+                    "S. Floranus",
+                    "T. Noslin"
+                ],
+                "Midfielders": [
+                    "T. Chong",
+                    "J. Bacuna",
+                    "B. Kuwas"
+                ],
+                "Forwards": [
+                    "X. Severina",
+                    "R. Rosario",
+                    "G. Sambo"
+                ]
+            },
+            "bench": [
+                "A. Martha",
+                "T. Mercera",
+                "L. Comenencia",
+                "I. Ahmed"
+            ]
+        },
+        "Côte_d'Ivoire": {
+            "starting_xi": {
+                "Goalkeeper": "Y. Fofana",
+                "Defenders": [
+                    "E. Ndicka",
+                    "F. Kessié",
+                    "O. Diomande",
+                    "W. Singo"
+                ],
+                "Midfielders": [
+                    "N. Pépé",
+                    "Amad",
+                    "E. Guessand"
+                ],
+                "Forwards": [
+                    "H. Traoré",
+                    "J. Bamba",
+                    "S. Haller"
+                ]
+            },
+            "bench": [
+                "O. Kossounou",
+                "E. Agbadou",
+                "I. Sangaré",
+                "S. Fofana",
+                "G. Doué",
+                "W. Zaha",
+                "J. Boga",
+                "S. Adingra",
+                "A. Lafont",
+                "B. Traoré",
+                "C. Kouamé",
+                "C. Akpa",
+                "E. Bailly",
+                "C. Kipré"
+            ]
+        },
+        "Ecuador": {
+            "starting_xi": {
+                "Goalkeeper": "H. Galíndez",
+                "Defenders": [
+                    "W. Pacho",
+                    "P. Hincapié",
+                    "P. Estupiñán",
+                    "Á. Preciado"
+                ],
+                "Midfielders": [
+                    "M. Caicedo",
+                    "K. Páez",
+                    "J. Sornoza"
+                ],
+                "Forwards": [
+                    "L. Campana",
+                    "J. Corozo",
+                    "B. Palacios"
+                ]
+            },
+            "bench": [
+                "J. Ordoñez",
+                "A. Domínguez",
+                "J. Burrai",
+                "C. Gruezo",
+                "J. Chávez",
+                "J. Cifuentes",
+                "L. Quiñonez",
+                "J. Ortiz",
+                "B. Ramírez",
+                "F. Gaibor",
+                "E. Castillo",
+                "A. Alvarado",
+                "J. Sarmiento",
+                "L. Cangá"
+            ]
+        }
+    },
+    "Group_F": {
+        "Netherlands": {
+            "starting_xi": {
+                "Goalkeeper": "J. Cillessen",
+                "Defenders": [
+                    "V. van Dijk",
+                    "D. Dumfries",
+                    "S. de Vrij",
+                    "N. Aké"
+                ],
+                "Midfielders": [
+                    "F. de Jong",
+                    "T. Reijnders",
+                    "R. Gravenberch"
+                ],
+                "Forwards": [
+                    "X. Simons",
+                    "C. Gakpo",
+                    "J. Frimpong"
+                ]
+            },
+            "bench": [
+                "M. van de Ven",
+                "J. Timber",
+                "M. de Ligt",
+                "S. Botman",
+                "M. de Roon",
+                "T. Koopmeiners",
+                "M. Depay",
+                "J. Schouten",
+                "S. Bergwijn",
+                "N. Lang",
+                "J. van Hecke",
+                "Q. Timber",
+                "D. Malen",
+                "J. Veerman"
+            ]
+        },
+        "Japan": {
+            "starting_xi": {
+                "Goalkeeper": "Z. Suzuki",
+                "Defenders": [
+                    "R. Doan",
+                    "H. Ito",
+                    "K. Itakura",
+                    "K. Machida"
+                ],
+                "Midfielders": [
+                    "K. Mitoma",
+                    "T. Kubo",
+                    "D. Maeda"
+                ],
+                "Forwards": [
+                    "T. Minamino",
+                    "J. Ito",
+                    "K. Nakamura"
+                ]
+            },
+            "bench": [
+                "H. Morita",
+                "K. Sano",
+                "W. Endo",
+                "D. Kamada",
+                "A. Tanaka",
+                "R. Hatate",
+                "T. Asano",
+                "T. Watanabe",
+                "S. Machino",
+                "K. Furuhashi",
+                "S. Maikuma",
+                "Y. Sugawara",
+                "K. Fujimoto",
+                "A. Ueda"
+            ]
+        },
+        "Sweden": {
+            "starting_xi": {
+                "Goalkeeper": "V. Johansson",
+                "Defenders": [
+                    "I. Hien",
+                    "C. Starfelt",
+                    "D. Svensson",
+                    "G. Gudmundsson"
+                ],
+                "Midfielders": [
+                    "D. Kulusevski",
+                    "A. Elanga",
+                    "E. Forsberg"
+                ],
+                "Forwards": [
+                    "A. Isak",
+                    "V. Gyökeres",
+                    "N. Eliasson"
+                ]
+            },
+            "bench": [
+                "H. Larsson",
+                "L. Bergvall",
+                "M. Svanberg",
+                "S. Nanasi",
+                "V. Lindelöf",
+                "Y. Ayari",
+                "J. Karlsson",
+                "J. Karlström",
+                "J. Cajuste",
+                "G. Nilsson",
+                "E. Smith",
+                "K. Mrabti",
+                "M. Ishak",
+                "W. Swedberg"
+            ]
+        },
+        "Tunisia": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "A. Abdi",
+                    "M. Talbi",
+                    "Y. Valery",
+                    "M. Ben Ouanes"
+                ],
+                "Midfielders": [
+                    "E. Skhiri",
+                    "Hannibal",
+                    "I. Gharbi"
+                ],
+                "Forwards": [
+                    "E. Achouri",
+                    "E. Saad",
+                    "A. Layouni"
+                ]
+            },
+            "bench": [
+                "S. Khaoui",
+                "S. Tounekti",
+                "S. Ltaief",
+                "I. El Mizouni",
+                "H. Rafia",
+                "D. Bronn",
+                "A. Ghram",
+                "M. Mahmoud",
+                "A. Slimane",
+                "A. Cherni",
+                "R. Kaib",
+                "C. Labidi",
+                "M. Dräger",
+                "L. Ben Farhat"
+            ]
+        }
+    },
+    "Group_G": {
+        "Belgium": {
+            "starting_xi": {
+                "Goalkeeper": "T. Courtois",
+                "Defenders": [
+                    "M. De Cuyper",
+                    "A. Theate",
+                    "Z. Debast",
+                    "A. Castro-Montes"
+                ],
+                "Midfielders": [
+                    "K. De Bruyne",
+                    "Y. Tielemans",
+                    "L. Trossard"
+                ],
+                "Forwards": [
+                    "R. Lukaku",
+                    "L. Openda",
+                    "C. De Ketelaere"
+                ]
+            },
+            "bench": [
+                "M. Sels",
+                "K. Casteels",
+                "D. Lukébakio",
+                "Y. Carrasco",
+                "J. Doku",
+                "H. Vanaken",
+                "A. Onana",
+                "A. Saelemaekers",
+                "M. Fofana",
+                "B. Heynen",
+                "J. Bakayoko",
+                "S. Lammens",
+                "R. Lavia",
+                "A. Vermeeren"
+            ]
+        },
+        "Egypt": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "A. Hegazi",
+                    "M. Abdelmonem",
+                    "R. Rabia",
+                    "O. Fayed"
+                ],
+                "Midfielders": [
+                    "M. Salah",
+                    "O. Marmoush",
+                    "S. Sharples-Ahmed"
+                ],
+                "Forwards": [
+                    "M. Mohamed",
+                    "A. Hassan",
+                    "K. Ashraf"
+                ]
+            },
+            "bench": []
+        },
+        "Iran": {
+            "starting_xi": {
+                "Goalkeeper": "A. Abedzadeh",
+                "Defenders": [
+                    "M. Hosseini",
+                    "Unknown DEF",
+                    "Unknown DEF",
+                    "Unknown DEF"
+                ],
+                "Midfielders": [
+                    "A. Sayyadmanesh",
+                    "A. Gholizadeh",
+                    "A. Karimi"
+                ],
+                "Forwards": [
+                    "M. Taremi",
+                    "Unknown FWD",
+                    "Unknown FWD"
+                ]
+            },
+            "bench": []
+        },
+        "New_Zealand": {
+            "starting_xi": {
+                "Goalkeeper": "A. Paulsen",
+                "Defenders": [
+                    "L. Cacace",
+                    "M. Boxall",
+                    "F. de Vries",
+                    "T. Bindon"
+                ],
+                "Midfielders": [
+                    "J. Bell",
+                    "M. Stamenić",
+                    "B. Old"
+                ],
+                "Forwards": [
+                    "C. Wood",
+                    "K. Barbarouses",
+                    "C. McCowatt"
+                ]
+            },
+            "bench": [
+                "F. Surman",
+                "A. Rufer",
+                "N. Pijnaker",
+                "R. Thomas",
+                "E. Just",
+                "M. Crocombe",
+                "M. Garbett",
+                "B. Tuiloma",
+                "J. McGarry",
+                "L. Rogerson",
+                "O. Sail",
+                "S. Sutton",
+                "T. Payne",
+                "L. Bayliss"
+            ]
+        }
+    },
+    "Group_H": {
+        "Spain": {
+            "starting_xi": {
+                "Goalkeeper": "David Raya",
+                "Defenders": [
+                    "Iñigo Martínez",
+                    "Carvajal",
+                    "Marc Cucurella",
+                    "Vivian"
+                ],
+                "Midfielders": [
+                    "Rodri",
+                    "Lamine Yamal",
+                    "Pedri"
+                ],
+                "Forwards": [
+                    "Nico Williams",
+                    "Dani Olmo",
+                    "Sancet"
+                ]
+            },
+            "bench": [
+                "Fabián Ruiz",
+                "Unai Simón",
+                "De Gea",
+                "Álex Baena",
+                "Marcos Llorente",
+                "Isco",
+                "Grimaldo",
+                "Gavi",
+                "Iago Aspas",
+                "Zubimendi",
+                "Ferran Torres",
+                "Joan García",
+                "Mikel Merino",
+                "Ayoze"
+            ]
+        },
+        "Cabo_Verde": {
+            "starting_xi": {
+                "Goalkeeper": "Bruno Varela",
+                "Defenders": [
+                    "L. Costa",
+                    "S. Moreira",
+                    "Wagner Pina",
+                    "Ricardo Santos"
+                ],
+                "Midfielders": [
+                    "Leandro Andrade",
+                    "Telmo Arcanjo",
+                    "Jovane Cabral"
+                ],
+                "Forwards": [
+                    "Nuno da Costa",
+                    "Dailon Livramento",
+                    "Duk"
+                ]
+            },
+            "bench": [
+                "Jamiro Monteiro",
+                "Sidnei Tavares",
+                "Fabrício Garcia",
+                "Vasco Lopes",
+                "Bryan Teixeira",
+                "R. Lopes",
+                "Ivanildo Fernandes",
+                "Sidny Cabral",
+                "Hélder Tavares",
+                "Bruno Leite",
+                "Diogo Mendes",
+                "João Paulo",
+                "Steve Furtado",
+                "Patrick"
+            ]
+        },
+        "Saudi_Arabia": {
+            "starting_xi": {
+                "Goalkeeper": "N. Al Aqidi",
+                "Defenders": [
+                    "S. Abdulhamid",
+                    "H. Tombakti",
+                    "S. Al Ghannam",
+                    "H. Kadish"
+                ],
+                "Midfielders": [
+                    "S. Al Dawsari",
+                    "M. Al Juwair",
+                    "F. Al Birekan"
+                ],
+                "Forwards": [
+                    "A. Al Obud",
+                    "A. Ghareeb",
+                    "S. Al Amri"
+                ]
+            },
+            "bench": [
+                "M. Kanno",
+                "A. Sharahili",
+                "M. Al Shanqeeti",
+                "A. Majrashi",
+                "A. Al Amri",
+                "A. Al Bulayhi",
+                "A. Lajami",
+                "M. Al Buraik",
+                "S. Al Faraj",
+                "S. Al Shehri",
+                "A. Al Khaibari",
+                "F. Al Ghamdi",
+                "M. Al Saad",
+                "M. Hamzi"
+            ]
+        },
+        "Uruguay": {
+            "starting_xi": {
+                "Goalkeeper": "F. Muslera",
+                "Defenders": [
+                    "F. Valverde",
+                    "J. Giménez",
+                    "R. Araujo",
+                    "S. Coates"
+                ],
+                "Midfielders": [
+                    "L. Torreira",
+                    "M. Arambarri",
+                    "R. Bentancur"
+                ],
+                "Forwards": [
+                    "D. Núñez",
+                    "L. Suárez",
+                    "L. Fernández"
+                ]
+            },
+            "bench": [
+                "M. Ugarte",
+                "R. Zalazar",
+                "M. Olivera",
+                "M. Vecino",
+                "M. Araújo",
+                "C. Stuani",
+                "M. Merentiel",
+                "J. Rodríguez",
+                "S. Bueno",
+                "N. Nández",
+                "E. Cavani",
+                "N. López",
+                "F. Israel",
+                "T. Palacios"
+            ]
+        }
+    },
+    "Group_I": {
+        "France": {
+            "starting_xi": {
+                "Goalkeeper": "M. Maignan",
+                "Defenders": [
+                    "J. Koundé",
+                    "W. Saliba",
+                    "I. Konaté",
+                    "D. Upamecano"
+                ],
+                "Midfielders": [
+                    "K. Mbappé",
+                    "O. Dembélé",
+                    "M. Olise"
+                ],
+                "Forwards": [
+                    "A. Griezmann",
+                    "K. Benzema",
+                    "D. Doué"
+                ]
+            },
+            "bench": [
+                "N. Kanté",
+                "M. Thuram",
+                "M. Diaby",
+                "B. Barcola",
+                "T. Hernández",
+                "A. Tchouaméni",
+                "B. Pavard",
+                "L. Chevalier",
+                "A. Rabiot",
+                "B. Kamara",
+                "E. Camavinga",
+                "K. Coman",
+                "H. Ekitiké",
+                "M. Guendouzi"
+            ]
+        },
+        "Senegal": {
+            "starting_xi": {
+                "Goalkeeper": "É. Mendy",
+                "Defenders": [
+                    "K. Koulibaly",
+                    "P. Ciss",
+                    "M. Niakhaté",
+                    "A. Ndiaye"
+                ],
+                "Midfielders": [
+                    "S. Mané",
+                    "B. Dia",
+                    "I. Sarr"
+                ],
+                "Forwards": [
+                    "N. Jackson",
+                    "I. Ndiaye",
+                    "A. Diao"
+                ]
+            },
+            "bench": [
+                "P. Sarr",
+                "I. Gueye",
+                "P. Gueye",
+                "Y. Diouf",
+                "L. Camara",
+                "H. Diarra",
+                "I. Jakobs",
+                "M. Thiam",
+                "E. Diouf",
+                "O. Ba",
+                "A. Sima",
+                "K. Diatta",
+                "B. Ndiaye",
+                "D. Lopy"
+            ]
+        },
+        "Iraq": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "M. Doski",
+                    "M. Jeahze",
+                    "Z. Iqbal",
+                    "Unknown DEF"
+                ],
+                "Midfielders": [
+                    "I. Bayesh",
+                    "A. Sher",
+                    "K. Yakob"
+                ],
+                "Forwards": [
+                    "M. Farji",
+                    "M. Madjed",
+                    "A. Al Hamadi"
+                ]
+            },
+            "bench": [
+                "A. Al-Ammari",
+                "D. Al Saed",
+                "A. Jasim",
+                "M. Al-Taay",
+                "A. Al-Hamawi"
+            ]
+        },
+        "Norway": {
+            "starting_xi": {
+                "Goalkeeper": "Ø. Nyland",
+                "Defenders": [
+                    "F. Aursnes",
+                    "J. Ryerson",
+                    "S. Berge",
+                    "K. Ajer"
+                ],
+                "Midfielders": [
+                    "M. Ødegaard",
+                    "A. Sørloth",
+                    "P. Berg"
+                ],
+                "Forwards": [
+                    "E. Haaland",
+                    "J. Larsen",
+                    "A. Nusa"
+                ]
+            },
+            "bench": [
+                "Z. Tripić",
+                "M. Elyounoussi",
+                "K. Thorstvedt",
+                "A. Schjelderup",
+                "A. Dønnum",
+                "A. Hanche-Olsen",
+                "J. Svensson",
+                "F. Myhre",
+                "F. Bjørkan",
+                "J. Hauge",
+                "J. King",
+                "M. Eikrem",
+                "T. Heggem",
+                "J. Glesnes"
+            ]
+        }
+    },
+    "Group_J": {
+        "Argentina": {
+            "starting_xi": {
+                "Goalkeeper": "E. Martínez",
+                "Defenders": [
+                    "C. Romero",
+                    "N. Otamendi",
+                    "L. Balerdi",
+                    "L. Martínez"
+                ],
+                "Midfielders": [
+                    "A. Mac Allister",
+                    "P. Dybala",
+                    "L. Messi"
+                ],
+                "Forwards": [
+                    "L. Martínez",
+                    "J. Alvarez",
+                    "Á. Di María"
+                ]
+            },
+            "bench": [
+                "R. De Paul",
+                "E. Fernández",
+                "E. Palacios",
+                "G. Lo Celso",
+                "G. Rulli",
+                "M. Icardi",
+                "G. Simeone",
+                "V. Castellanos",
+                "W. Benítez",
+                "F. Medina",
+                "Nico Paz",
+                "J. Musso",
+                "J. Foyth",
+                "A. Varela"
+            ]
+        },
+        "Algeria": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "R. Aït-Nouri",
+                    "R. Bensebaini",
+                    "A. Mandi",
+                    "A. Bedrane"
+                ],
+                "Midfielders": [
+                    "R. Mahrez",
+                    "I. Bennacer",
+                    "M. Amoura"
+                ],
+                "Forwards": [
+                    "A. Gouiri",
+                    "S. Benrahma",
+                    "I. Kebbal"
+                ]
+            },
+            "bench": [
+                "A. Zorgane",
+                "H. Boudaoui",
+                "N. Bentaleb",
+                "H. Aouar",
+                "H. Abdelli",
+                "A. Hadj-Moussa",
+                "A. Sâyoud",
+                "B. Bouanani",
+                "R. Ghezzal",
+                "H. Belkebla",
+                "F. Chaïbi",
+                "R. Guitane",
+                "A. Kadri",
+                "M. Belloumi"
+            ]
+        },
+        "Austria": {
+            "starting_xi": {
+                "Goalkeeper": "A. Schlager",
+                "Defenders": [
+                    "K. Laimer",
+                    "D. Alaba",
+                    "S. Posch",
+                    "K. Danso"
+                ],
+                "Midfielders": [
+                    "M. Sabitzer",
+                    "X. Schlager",
+                    "R. Schmid"
+                ],
+                "Forwards": [
+                    "P. Wimmer",
+                    "C. Baumgartner",
+                    "M. Gregoritsch"
+                ]
+            },
+            "bench": [
+                "P. Lienhart",
+                "M. Friedl",
+                "N. Seiwald",
+                "P. Mwene",
+                "K. Stöger",
+                "V. Lazaro",
+                "G. Trauner",
+                "F. Grillitsch",
+                "M. Cham",
+                "D. Affengruber",
+                "M. Wöber",
+                "L. Querfeld",
+                "C. Trimmel",
+                "M. Grüll"
+            ]
+        },
+        "Jordan": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "Y. Al Arab",
+                    "Unknown DEF",
+                    "Unknown DEF",
+                    "Unknown DEF"
+                ],
+                "Midfielders": [
+                    "M. Al Tamari",
+                    "Unknown MID",
+                    "Unknown MID"
+                ],
+                "Forwards": [
+                    "I. Sabra",
+                    "Unknown FWD",
+                    "Unknown FWD"
+                ]
+            },
+            "bench": []
+        }
+    },
+    "Group_K": {
+        "Portugal": {
+            "starting_xi": {
+                "Goalkeeper": "Diogo Costa",
+                "Defenders": [
+                    "Rúben Dias",
+                    "Nuno Mendes",
+                    "João Cancelo",
+                    "Danilo Pereira"
+                ],
+                "Midfielders": [
+                    "Vitinha",
+                    "Bruno Fernandes",
+                    "João Neves"
+                ],
+                "Forwards": [
+                    "Cristiano Ronaldo",
+                    "Rafael Leão",
+                    "Trincão"
+                ]
+            },
+            "bench": [
+                "Rúben Neves",
+                "Bernardo Silva",
+                "Palhinha",
+                "Pedro Gonçalves",
+                "Rafa",
+                "Otávio",
+                "Ricardo Horta",
+                "Rui Silva",
+                "Gonçalo Inácio",
+                "R. Guerreiro",
+                "Florentino",
+                "Gonçalo Ramos",
+                "Pedro Neto",
+                "Francisco Conceição"
+            ]
+        },
+        "Congo_DR": {
+            "starting_xi": {
+                "Goalkeeper": "L. Mpasi",
+                "Defenders": [
+                    "A. Wan-Bissaka",
+                    "A. Masuaku",
+                    "C. Mbemba",
+                    "J. Kayembe"
+                ],
+                "Midfielders": [
+                    "Silas",
+                    "N. Mukau",
+                    "N. Sadiki"
+                ],
+                "Forwards": [
+                    "Y. Wissa",
+                    "S. Banza",
+                    "C. Bakambu"
+                ]
+            },
+            "bench": [
+                "S. Essende",
+                "A. Tuanzebe",
+                "A. Pululu",
+                "B. Baningime",
+                "D. Batubinsika",
+                "E. Kayembe",
+                "S. Kapuadi",
+                "C. Pickel",
+                "N. Mbuku",
+                "O. Maritu",
+                "M. Elia",
+                "J. Muleka",
+                "G. Diangana",
+                "M. Tisserand"
+            ]
+        },
+        "Uzbekistan": {
+            "starting_xi": {
+                "Goalkeeper": "Unknown GK",
+                "Defenders": [
+                    "A. Khusanov",
+                    "K. Alikulov",
+                    "Unknown DEF",
+                    "Unknown DEF"
+                ],
+                "Midfielders": [
+                    "E. Shomurodov",
+                    "A. Fayzullaev",
+                    "M. Urinboev"
+                ],
+                "Forwards": [
+                    "Unknown FWD",
+                    "Unknown FWD",
+                    "Unknown FWD"
+                ]
+            },
+            "bench": []
+        },
+        "Colombia": {
+            "starting_xi": {
+                "Goalkeeper": "D. Ospina",
+                "Defenders": [
+                    "D. Sánchez",
+                    "D. Muñoz",
+                    "J. Mojica",
+                    "J. Lerma"
+                ],
+                "Midfielders": [
+                    "L. Díaz",
+                    "R. Ríos",
+                    "C. Arango"
+                ],
+                "Forwards": [
+                    "D. Zapata",
+                    "J. Durán",
+                    "J. Arias"
+                ]
+            },
+            "bench": [
+                "Cucho",
+                "J. Quintero",
+                "K. Castaño",
+                "Y. Mina",
+                "L. Suárez",
+                "J. Lucumí",
+                "L. Muriel",
+                "J. Campaz",
+                "J. Cuadrado",
+                "M. Borja",
+                "M. Uribe",
+                "D. Machado",
+                "Á. Montero",
+                "D. Moreno"
+            ]
+        }
+    },
+    "Group_L": {
+        "England": {
+            "starting_xi": {
+                "Goalkeeper": "J. Pickford",
+                "Defenders": [
+                    "T. Alexander-Arnold",
+                    "B. White",
+                    "E. Konsa",
+                    "J. Stones"
+                ],
+                "Midfielders": [
+                    "J. Bellingham",
+                    "B. Saka",
+                    "D. Rice"
+                ],
+                "Forwards": [
+                    "H. Kane",
+                    "C. Palmer",
+                    "P. Foden"
+                ]
+            },
+            "bench": [
+                "J. Maddison",
+                "O. Watkins",
+                "J. Bowen",
+                "A. Gordon",
+                "E. Eze",
+                "M. Greenwood",
+                "M. Rogers",
+                "M. Gibbs-White",
+                "M. Guéhi",
+                "N. Pope",
+                "R. James",
+                "C. Gallagher",
+                "J. Murphy",
+                "I. Toney"
+            ]
+        },
+        "Croatia": {
+            "starting_xi": {
+                "Goalkeeper": "D. Livaković",
+                "Defenders": [
+                    "J. Gvardiol",
+                    "J. Šutalo",
+                    "J. Stanišić",
+                    "K. Jakić"
+                ],
+                "Midfielders": [
+                    "M. Kovačić",
+                    "L. Modrić",
+                    "I. Perišić"
+                ],
+                "Forwards": [
+                    "A. Budimir",
+                    "M. Livaja",
+                    "N. Vlašić"
+                ]
+            },
+            "bench": [
+                "A. Kramarić",
+                "M. Brozović",
+                "M. Pašalić",
+                "M. Baturina",
+                "L. Majer",
+                "L. Sučić",
+                "D. Kotarski",
+                "B. Petković",
+                "P. Musa",
+                "K. Kahlina",
+                "J. Brekalo",
+                "F. Ivanović",
+                "T. Fruk",
+                "N. Moro"
+            ]
+        },
+        "Ghana": {
+            "starting_xi": {
+                "Goalkeeper": "L. Zigi",
+                "Defenders": [
+                    "T. Partey",
+                    "A. Mumin",
+                    "A. Djiku",
+                    "R. Baba"
+                ],
+                "Midfielders": [
+                    "Iñaki Williams",
+                    "M. Kudus",
+                    "A. Semenyo"
+                ],
+                "Forwards": [
+                    "J. Paintsil",
+                    "A. Fatawu",
+                    "E. Nuamah"
+                ]
+            },
+            "bench": [
+                "M. Salisu",
+                "J. Aidoo",
+                "A. Seidu",
+                "G. Mensah",
+                "E. Gyasi",
+                "S. Abdul Samed",
+                "C. Bonsu Baah",
+                "E. Owusu",
+                "T. Lamptey",
+                "J. Ayew",
+                "J. Schlupp",
+                "E. Boateng",
+                "O. Bukari",
+                "I. Osman"
+            ]
+        },
+        "Panama": {
+            "starting_xi": {
+                "Goalkeeper": "L. Mejía",
+                "Defenders": [
+                    "A. Murillo",
+                    "A. Andrade",
+                    "J. Córdoba",
+                    "C. Harvey"
+                ],
+                "Midfielders": [
+                    "A. Godoy",
+                    "J. Fajardo",
+                    "E. Cedeño"
+                ],
+                "Forwards": [
+                    "E. Guerrero",
+                    "A. Londoño",
+                    "Rafael Mosquera"
+                ]
+            },
+            "bench": [
+                "O. Mosquera",
+                "L. Heráldez",
+                "M. Krug",
+                "O. Valencia"
+            ]
+        }
+    }
+}

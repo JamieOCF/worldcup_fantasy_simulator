@@ -1,0 +1,338 @@
+/* ============================================================
+   history.css
+   History / Leaderboard page — extends styles.css tokens.
+   Never redefines base variables; only adds page-scoped rules.
+   ============================================================ */
+
+/* ── Page shell ─────────────────────────────────────────────── */
+.history-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-8) var(--space-24);
+}
+
+/* ── Hero heading ───────────────────────────────────────────── */
+.history-hero {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  position: relative;
+}
+
+.history-hero__eyebrow {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  margin-bottom: var(--space-3);
+}
+
+.history-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  background: linear-gradient(
+    135deg,
+    var(--color-white)        0%,
+    var(--color-gold-bright)  45%,
+    var(--color-white)        100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.history-hero__rule {
+  width: 80px;
+  height: 2px;
+  background: var(--gradient-gold);
+  margin: var(--space-4) auto 0;
+  border: none;
+  border-radius: 2px;
+}
+
+/* ── Summary stat pills ─────────────────────────────────────── */
+.history-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-12);
+}
+
+.history-stat {
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-8);
+  text-align: center;
+  min-width: 140px;
+  box-shadow: var(--shadow-sm), var(--shadow-inset);
+  transition: border-color var(--duration-base) var(--ease-out),
+              box-shadow   var(--duration-base) var(--ease-out);
+}
+
+.history-stat:hover {
+  border-color: var(--color-border-glow);
+  box-shadow: var(--shadow-md), var(--shadow-gold);
+}
+
+.history-stat__value {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: 0.04em;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.history-stat__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: var(--space-1);
+}
+
+/* ── Empty state ────────────────────────────────────────────── */
+.history-empty {
+  text-align: center;
+  padding: var(--space-24) var(--space-8);
+}
+
+.history-empty__icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+  opacity: 0.35;
+}
+
+.history-empty__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.05em;
+  color: var(--color-faint);
+  margin-bottom: var(--space-2);
+}
+
+.history-empty__sub {
+  font-size: var(--text-sm);
+  color: var(--color-faint);
+}
+
+/* ── Leaderboard table ──────────────────────────────────────── */
+.leaderboard-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  /* thin gold top accent line */
+  background:
+    linear-gradient(var(--color-gold), var(--color-gold)) top / 100% 2px no-repeat,
+    var(--gradient-surface);
+}
+
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 580px;
+}
+
+/* ── Table head ─── */
+.leaderboard thead {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.leaderboard thead th {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.leaderboard thead th.col-rank,
+.leaderboard thead th.col-pts {
+  text-align: center;
+}
+
+/* ── Table body ─── */
+.leaderboard tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--duration-fast) var(--ease-out);
+  animation: lb-row-in 0.45s var(--ease-out) both;
+}
+
+.leaderboard tbody tr:last-child {
+  border-bottom: none;
+}
+
+.leaderboard tbody tr:hover {
+  background: rgba(240, 192, 64, 0.04);
+}
+
+/* Podium row tints */
+.leaderboard tbody tr.rank-1 { background: rgba(240, 192, 64, 0.07); }
+.leaderboard tbody tr.rank-2 { background: rgba(143, 163, 177, 0.05); }
+.leaderboard tbody tr.rank-3 { background: rgba(160, 112,  74, 0.05); }
+
+.leaderboard tbody tr.rank-1:hover { background: rgba(240, 192, 64, 0.12); }
+
+@keyframes lb-row-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.leaderboard td {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-sm);
+  vertical-align: middle;
+  color: var(--color-text);
+}
+
+/* ── Rank cell ─── */
+.leaderboard .col-rank {
+  width: 56px;
+  text-align: center;
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.rank-badge--1 {
+  background: var(--gradient-gold);
+  color: var(--color-night);
+  box-shadow: var(--shadow-gold);
+}
+
+.rank-badge--2 {
+  background: linear-gradient(135deg, #c8d6e0, #8fa3b1);
+  color: var(--color-night);
+}
+
+.rank-badge--3 {
+  background: linear-gradient(135deg, #c8936a, #a0704a);
+  color: var(--color-white);
+}
+
+.rank-badge--default {
+  background: transparent;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+/* ── Team name cell ─── */
+.team-name {
+  font-weight: var(--weight-semi);
+  font-size: var(--text-base);
+  color: var(--color-white);
+}
+
+/* ── Round pill ─── */
+.round-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.round-pill[data-round="Winner"] {
+  background: rgba(240, 192, 64, 0.15);
+  border-color: var(--color-gold-muted);
+  color: var(--color-gold);
+}
+.round-pill[data-round="Final"] {
+  background: rgba(240, 192, 64, 0.08);
+  border-color: rgba(240, 192, 64, 0.3);
+  color: var(--color-gold-bright);
+}
+.round-pill[data-round="Semi-Final"],
+.round-pill[data-round="Third Place"] {
+  background: rgba(77, 166, 232, 0.1);
+  border-color: rgba(77, 166, 232, 0.3);
+  color: var(--color-info);
+}
+.round-pill[data-round="Quarter-Final"] {
+  background: rgba(56, 201, 122, 0.08);
+  border-color: rgba(56, 201, 122, 0.25);
+  color: var(--color-success);
+}
+.round-pill[data-round="Round of 16"] {
+  background: rgba(122, 155, 181, 0.08);
+  border-color: rgba(122, 155, 181, 0.2);
+  color: var(--color-muted);
+}
+
+/* ── Points cell ─── */
+.col-pts {
+  text-align: center;
+}
+
+.points-value {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: 0.04em;
+  color: var(--color-gold);
+}
+
+.leaderboard tbody tr:not(.rank-1):not(.rank-2):not(.rank-3) .points-value {
+  color: var(--color-muted);
+}
+
+/* ── Top scorer cell ─── */
+.scorer-name {
+  font-weight: var(--weight-medium);
+  color: var(--color-white);
+}
+
+.scorer-pts {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .history-page {
+    padding: var(--space-8) var(--space-4) var(--space-16);
+  }
+
+  .leaderboard td,
+  .leaderboard thead th {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .history-stats {
+    gap: var(--space-3);
+  }
+
+  .history-stat {
+    padding: var(--space-3) var(--space-6);
+    min-width: 110px;
+  }
+}
