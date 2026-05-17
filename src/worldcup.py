@@ -149,21 +149,26 @@ class WorldCup:
         self.knockout.init_step_mode(self.bracket, round_name)
 
     def knockout_step(self):
-        """Simulate ONE knockout match."""
+        """Simulate ONE knockout match or return final champion."""
         result = self.knockout.step()
 
-        if result["done"]:
-            # move to next knockout round
-            self.current_knockout_index += 1
+        # If current round is not finished, just return this match
+        if not result["done"]:
+            return result
 
-            if self.current_knockout_index >= len(self.knockout_round_order):
-                return {"done": True, "champion": result["winners"][0]}
+        # Current round finished → move to next knockout round
+        self.current_knockout_index += 1
 
-            # prepare next round
-            winners = result["winners"]
-            round_name, _size = self.knockout_round_order[self.current_knockout_index]
-            self.knockout.init_step_mode(winners, round_name)
+        # Tournament finished
+        if self.current_knockout_index >= len(self.knockout_round_order):
+            return {"done": True, "champion": result["winners"][0]}
 
-            return {"round_complete": True, "next_round": round_name}
+        # Prepare next round
+        winners = result["winners"]
+        round_name, _size = self.knockout_round_order[self.current_knockout_index]
+        self.knockout.init_step_mode(winners, round_name)
 
-        return result
+        # ⭐ Immediately step into the next round and return its first match
+        next_result = self.knockout.step()
+        return next_result
+

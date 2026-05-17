@@ -1,16 +1,16 @@
 {
     "save_state": 0,
-    "team_name": "\u2014",
+    "team_name": "—",
     "points": 0,
-    "round": "\u2014",
+    "round": "—",
     "eliminated": "No",
-    "budget": 19.6,
+    "budget": 135,
     "highest_score_player": {
-        "name": "\u2014",
+        "name": "—",
         "points": 0
     },
     "lowest_score_player": {
-        "name": "\u2014",
+        "name": "—",
         "points": 0
     },
     "players": [],

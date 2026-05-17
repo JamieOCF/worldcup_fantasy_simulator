@@ -1,17 +1,19 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
 from flask_session import Session
-# from werkzeug.security import generate_password_hash, check_password_hash
 from history_manager import load_history, ROUND_ORDER
 from save_manager import load_save, _creation_step, _clear_creation, _write_save,\
 _load_save, _load_players, _save_to_file, _load_groups
 from save_manager import FORMATIONS, POSITION_MAP, TOTAL_SQUAD
 from functools import wraps
-from worldcup import WorldCup
+import os
 from flask_wtf.csrf import CSRFProtect
+
+
 import json
 # Look for your existing models import and add it there:
 from models import Teams, _team_name_match, create_teams_from_rosters
 from worldcup import WorldCup
+import traceback
 
 app = Flask(__name__)
 print("RUNNING APP FROM:", __file__)
@@ -19,9 +21,17 @@ app.config["SECRET_KEY"] = 'x' # dont change
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-CSRFProtect(app)
 
 CURRENT_WC = None
+
+
+csrf = CSRFProtect(app)
+
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    traceback.print_exc()          # full traceback in your terminal
+    return jsonify({"error": str(e)}), 500
 
 
 def requires_creation_step(minimum_step: int):
@@ -212,6 +222,10 @@ def submit_squad():
     creation["formation"] = formation
     creation["step"]      = 2
     session.modified      = True
+
+    # with open("logger.txt", "w") as l:
+    #     l.write(str(squad))
+    #     l.close()
  
     return redirect(url_for("replace"))
  
@@ -223,6 +237,7 @@ def replace():
     creation = session.get("creation", {})
     if creation.get("step", 0) < 2:
         flash("Please complete the previous steps first.", "warning")
+        # print("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooops")
         return redirect(url_for("new_save"))
  
     groups = _load_groups()
@@ -276,7 +291,7 @@ def finalise():
     new_save = {
         "save_state":  1,                          # 1 = active run
         "team_name":   creation["team_name"],
-        "replacement":    creation["opponent"],
+        "replacement":    creation["replacement"],
         "round":       "Group Stage",
         "points":      0,
         "eliminated":  False,
@@ -284,6 +299,47 @@ def finalise():
         "highest_score_player": {"name": "—", "points": 0},
         "lowest_score_player":  {"name": "—", "points": 0},
     }
+
+    BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
+    SQUAD_FILE    = os.path.join(BASE_DIR, "data", "playerTeam.json")
+
+    defs = []
+    mids = []
+    fwds = []
+    gk = None
+    bench = []
+    squad = creation["squad"]
+    for p in squad:
+        pos = p["slot_id"].split("-")[0]
+        match pos:
+            case "def":
+                defs.append(p["short_name"])
+            case "mid":
+                mids.append(p["short_name"])
+            case "fwd":
+                fwds.append(p["short_name"])
+            case "gk":
+                gk = p["short_name"]
+            case "bench":
+                bench.append(p["short_name"])
+
+    squad_data = {
+        creation["team_name"]: {
+            "replacing": creation["replacement"],
+            "starting_xi": {
+                "Goalkeeper": gk,
+                "Defenders": defs,
+                "Midfielders": mids,
+                "Forwards": fwds
+            },
+            "bench": bench
+        }
+    }
+    # with open("logger.txt", "w") as l:
+    #     l.write(squad_data)
+    #     l.close()
+    with open("data/playerTeam.json", "w") as f:
+        json.dump(squad_data, f, indent=4)
  
     _write_save(new_save)
     _clear_creation()                              # clean up session
@@ -338,8 +394,13 @@ def start_group_stage():
         print(f"DEBUG: Parsing failed, but continuing safely. Error: {e}")
 
     # Initialize your class safely
-    CURRENT_WC = WorldCup(rosters=TEAMS_DATA, csv_path="data/FC26_Rosters.csv")
-    CURRENT_WC.init_group_stage_step_mode(follow=follow)
+    try:
+        CURRENT_WC = WorldCup(rosters=TEAMS_DATA, csv_path="data/FC26_Rosters.csv")
+        CURRENT_WC.init_group_stage_step_mode(follow=follow)
+    except Exception as e:
+        traceback.print_exc()          # prints exactly where it died
+        return jsonify({"error": str(e)}), 400
+    
 
     return jsonify({"message": f"Group stage started. Following: {follow}"})
 

@@ -6,21 +6,13 @@
 
   {# ── Top bar ── #}
   <div class="co-topbar">
-
-    <div class="co-topbar__step-block">
-      <span class="co-topbar__step-text">Step 2 of 2</span>
+    <div class="co-topbar__left">
+      <span class="co-topbar__eyebrow">Step 2 of 2</span>
+      <h1 class="co-topbar__title">
+        Choose a Team to Replace — <span>{{ team_name }}</span>
+      </h1>
     </div>
-
-    <div class="co-topbar__title-block">
-      <span class="co-topbar__label">Replace a team</span>
-      <div class="co-topbar__divider"></div>
-      <span class="co-topbar__team">{{ team_name }}</span>
-    </div>
-
-    <div class="co-topbar__hint">
-      <span>Select a group, then click a team twice to confirm</span>
-    </div>
-
+    <span class="co-topbar__step">Select a group, then pick your team</span>
   </div>
 
   {# ── Body ── #}
@@ -35,16 +27,13 @@
           data-group="{{ group_name }}"
           style="animation-delay: {{ (loop.index0 * 0.04)|round(2) }}s"
         >
-          <div class="co-group-tile__top">
-            <span class="co-group-tile__letter">{{ letter }}</span>
-            <span class="co-group-tile__arrow">›</span>
-          </div>
+          <span class="co-group-tile__letter">{{ letter }}</span>
           <div class="co-group-tile__teams">
             {% for team_name_inner in teams.keys() %}
               <span class="co-group-tile__team">{{ team_name_inner }}</span>
             {% endfor %}
           </div>
-          <span class="co-group-tile__bg-letter">{{ letter }}</span>
+          <span class="co-group-tile__chevron">></span>
         </div>
       {% endfor %}
     </div>
@@ -53,27 +42,28 @@
     <div class="co-expanded" id="co-expanded">
       <div class="co-expanded__header">
         <p class="co-expanded__group-label" id="expanded-label">Group —</p>
-        <h2 class="co-expanded__title"    id="expanded-title">—</h2>
+        <h2 class="co-expanded__title" id="expanded-title">—</h2>
         <p class="co-expanded__instruction">
-          Click a team once to select, click again to confirm.
+          Select a team to replace in the tournament.
+          Click once to preview, click again to confirm.
         </p>
       </div>
 
       <div class="co-team-grid" id="co-team-grid">
-        {# Populated by JS #}
+        {# populated by JS #}
       </div>
     </div>
 
-  </div>
+  </div>{# /co-body #}
 
-  {# Hidden submit form #}
+  {# Hidden form — submitted when a team is confirmed #}
   <form
     id="opponent-form"
     method="POST"
     action="{{ url_for('replace_helper') }}"
     style="display:none;"
   >
-    <input type="hidden" name="csrf_token"     value="{{ csrf_token() }}">
+    <input type="hidden" name="csrf_token"     value="{{ csrf_token() }}">z
     <input type="hidden" name="opponent"       id="opponent-input">
     <input type="hidden" name="opponent_group" id="opponent-group-input">
   </form>
@@ -86,8 +76,10 @@
 (function () {
   'use strict';
 
+  /* ─── Data passed from Flask ─── */
   const GROUPS = {{ groups_json | safe }};
 
+  /* ─── DOM refs ─── */
   const groupsEl      = document.getElementById('co-groups');
   const expandedEl    = document.getElementById('co-expanded');
   const expandedLabel = document.getElementById('expanded-label');
@@ -97,93 +89,99 @@
   const groupInput    = document.getElementById('opponent-group-input');
   const form          = document.getElementById('opponent-form');
 
-  let activeGroup  = null;
-  let pendingTeam  = null;
-  let pendingTimer = null;
+  /* ─── State ─── */
+  let activeGroup   = null;
+  let pendingTeam   = null;
+  let pendingTimer  = null;
 
+  /* ─── Capitalise helper ─── */
   function cap(str) {
     return str.replace(/\b\w/g, c => c.toUpperCase());
   }
 
+  /* ─── Open a group ─── */
   function openGroup(groupName) {
     if (activeGroup === groupName) return;
     activeGroup = groupName;
     pendingTeam = null;
     clearTimeout(pendingTimer);
 
-    document.querySelectorAll('.co-group-tile').forEach(tile =>
-      tile.classList.toggle('co-group-tile--active', tile.dataset.group === groupName)
-    );
+    /* Update tile active states */
+    document.querySelectorAll('.co-group-tile').forEach(tile => {
+      tile.classList.toggle('co-group-tile--active', tile.dataset.group === groupName);
+    });
 
+    /* Narrow the groups sidebar */
     groupsEl.classList.add('co-groups--narrowed');
 
+    /* Update panel header */
     const letter = groupName.split(' ').pop().toUpperCase();
-    expandedLabel.textContent = `Group ${letter}`;
+    expandedLabel.textContent = groupName.toUpperCase();
     expandedTitle.textContent = `Group ${letter}`;
 
+    /* Render team cards */
     renderTeams(groupName);
+
+    /* Show the panel */
     expandedEl.classList.add('co-expanded--visible');
   }
 
+  /* ─── Render team cards ─── */
   function renderTeams(groupName) {
     const teams = GROUPS[groupName] || {};
     teamGrid.innerHTML = '';
 
-    const keys = Object.keys(teams);
-    if (!keys.length) {
-      teamGrid.innerHTML = '<p class="co-empty">No teams found.</p>';
-      return;
-    }
-
-    keys.forEach((name, i) => {
+    Object.keys(teams).forEach((teamName, i) => {
       const card = document.createElement('div');
-      card.className = 'co-team-card';
-      card.dataset.team    = name;
-      card.dataset.group   = groupName;
-      card.dataset.initial = name.charAt(0).toUpperCase();
+      card.className        = 'co-team-card';
+      card.dataset.team     = teamName;
+      card.dataset.group    = groupName;
       card.style.animationDelay = `${(i * 0.06).toFixed(2)}s`;
 
       card.innerHTML = `
-        <div class="co-team-card__name">${cap(name)}</div>
-        <div class="co-team-card__confirm">✓ &nbsp;Confirm selection</div>
+        <div class="co-team-card__name">${cap(teamName)}</div>
+        <div class="co-team-card__confirm">✓ Confirm selection</div>
       `;
 
-      card.addEventListener('click', () => handleTeamClick(card, name, groupName));
+      card.addEventListener('click', () => handleTeamClick(card, teamName, groupName));
       teamGrid.appendChild(card);
     });
   }
 
+  /* ─── Two-click confirm ─── */
   function handleTeamClick(cardEl, teamName, groupName) {
     if (pendingTeam === teamName) {
+      /* Second click — confirm */
       opponentInput.value = teamName;
       groupInput.value    = groupName;
       form.submit();
       return;
     }
 
+    /* First click — mark pending */
     clearTimeout(pendingTimer);
-    document.querySelectorAll('.co-team-card--pending')
-      .forEach(c => c.classList.remove('co-team-card--pending'));
-
+    document.querySelectorAll('.co-team-card').forEach(c => c.classList.remove('co-team-card--pending'));
     pendingTeam = teamName;
     cardEl.classList.add('co-team-card--pending');
 
+    /* Auto-reset after 4 s */
     pendingTimer = setTimeout(() => {
       cardEl.classList.remove('co-team-card--pending');
       pendingTeam = null;
     }, 4000);
   }
 
-  document.querySelectorAll('.co-group-tile').forEach(tile =>
-    tile.addEventListener('click', () => openGroup(tile.dataset.group))
-  );
+  /* ─── Wire up group tiles ─── */
+  document.querySelectorAll('.co-group-tile').forEach(tile => {
+    tile.addEventListener('click', () => openGroup(tile.dataset.group));
+  });
 
+  /* ─── Keyboard support ─── */
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       clearTimeout(pendingTimer);
       pendingTeam = null;
-      document.querySelectorAll('.co-team-card--pending')
-        .forEach(c => c.classList.remove('co-team-card--pending'));
+      document.querySelectorAll('.co-team-card--pending').forEach(c => c.classList.remove('co-team-card--pending'));
     }
   });
 

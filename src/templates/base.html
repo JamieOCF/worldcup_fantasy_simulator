@@ -6,7 +6,8 @@
     <title>WC26</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename=style) }}">
-    <link rel="icon" href="{{ url_for('static', filename='') }}">
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     <header>

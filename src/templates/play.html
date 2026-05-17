@@ -1,60 +1,457 @@
 {% extends "base.html" %}
 
 {% block main %}
-<button onclick="startGroupStage()">Start Group Stage</button>
-<button onclick="nextGroupRound()">Next Group Round</button>
-<button onclick="startKnockout()">Start Knockout Stage</button>
-<button onclick="nextKnockoutMatch()">Next Knockout Match</button>
 
-<div id="output"></div>
+<style>
+  body { background: #0d1b2a; color: #e8eaf0; }
+
+  .sim-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  .sim-title {
+    font-family: 'Impact', 'Arial Narrow', sans-serif;
+    font-size: 3rem; font-weight: 900; letter-spacing: .04em;
+    text-transform: uppercase; color: #fff; margin-bottom: .2rem;
+  }
+  .sim-title span { color: #f5c518; }
+  .sim-sub {
+    font-size: .78rem; color: #4a6fa5; letter-spacing: .1em;
+    text-transform: uppercase; margin-bottom: 2rem;
+  }
+
+  /* buttons */
+  .ctrl-bar { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.5rem; align-items: center; }
+  .btn {
+    padding: .5rem 1.3rem; border: none; border-radius: 3px;
+    font-size: .75rem; font-weight: 700; cursor: pointer;
+    text-transform: uppercase; letter-spacing: .08em;
+    transition: opacity .15s, transform .1s;
+  }
+  .btn:disabled { opacity: .25; cursor: not-allowed; }
+  .btn:active:not(:disabled) { transform: scale(.97); }
+  .btn-start   { background: #f5c518; color: #0d1b2a; }
+  .btn-next    { background: transparent; color: #f5c518; border: 1px solid #f5c518; }
+  .btn-ko      { background: transparent; color: #a0b4c8; border: 1px solid #2a4a6a; }
+  .btn-ko-next { background: transparent; color: #a0b4c8; border: 1px solid #2a4a6a; }
+
+  .status-pill {
+    font-size: .68rem; font-weight: 700; padding: .22rem .75rem;
+    border-radius: 2px; background: #f5c518; color: #0d1b2a;
+    text-transform: uppercase; letter-spacing: .07em; display: none;
+  }
+  .status-pill.done { background: #166534; color: #bbf7d0; }
+
+  #err { color: #f87171; font-size: .8rem; margin-top: .3rem; min-height: 1rem; }
+
+  /* tabs */
+  .tabs { display: flex; border-bottom: 1px solid #1e3a5c; margin-bottom: 1.5rem; }
+  .tab-btn {
+    padding: .55rem 1.3rem; font-size: .72rem; font-weight: 700;
+    letter-spacing: .09em; text-transform: uppercase;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; cursor: pointer; color: #2a4a6a; transition: color .15s, border-color .15s;
+  }
+  .tab-btn.active { color: #f5c518; border-bottom-color: #f5c518; }
+  .tab-btn:hover:not(.active) { color: #7b8fab; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* section label */
+  .sec-label {
+    font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: #2a4a6a; margin: 1.25rem 0 .6rem;
+    border-left: 3px solid #f5c518; padding-left: .55rem;
+  }
+
+  /* match table */
+  .match-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: .84rem; }
+  .match-table thead tr { border-bottom: 1px solid #1a3352; }
+  .match-table th {
+    padding: .38rem .7rem; text-align: left; color: #2a4a6a;
+    font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .match-table th.c { text-align: center; }
+  .match-table tbody tr { border-bottom: 1px solid #0f1f30; }
+  .match-table tbody tr:nth-child(odd)  { background: #0d1b2a; }
+  .match-table tbody tr:nth-child(even) { background: #0f2032; }
+  .match-table tbody tr.follow-row { background: #0f2418 !important; }
+  .match-table td { padding: .48rem .7rem; color: #a0b4c8; }
+  .match-table td.c { text-align: center; }
+  .grp-tag { font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #2a4a6a; }
+  .score-cell { font-size: 1.05rem; font-weight: 900; color: #fff; letter-spacing: .04em; text-align: center; }
+  .t-win  { color: #fff; font-weight: 700; }
+  .t-lose { color: #2a4a6a; }
+  .ev-cell { font-size: .7rem; line-height: 1.6; }
+  .ev-goal   { color: #4ade80; }
+  .ev-yellow { color: #facc15; }
+  .ev-red    { color: #f87171; }
+  .follow-star { color: #f5c518; font-size: .7rem; margin-left: .3rem; }
+  .follow-msg  { color: #4ade80; font-size: .7rem; }
+
+  /* standings */
+  .groups-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(295px,1fr)); gap: .9rem; margin-bottom: 1.5rem; }
+  .g-card { border: 1px solid #1a3352; border-radius: 5px; overflow: hidden; }
+  .g-card-hdr {
+    padding: .42rem .8rem; background: #0a1520;
+    font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: #f5c518; border-bottom: 1px solid #1a3352;
+  }
+  .st-tbl { width: 100%; border-collapse: collapse; font-size: .78rem; }
+  .st-tbl th {
+    padding: .32rem .6rem; text-align: center; color: #2a4a6a;
+    font-size: .62rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; border-bottom: 1px solid #1a3352;
+  }
+  .st-tbl th:first-child { text-align: left; }
+  .st-tbl td { padding: .4rem .6rem; border-bottom: 1px solid #0d1b2a; text-align: center; color: #8a9fba; }
+  .st-tbl td:first-child { text-align: left; }
+  .st-tbl tr:last-child td { border-bottom: none; }
+  .st-tbl tr.q td { background: rgba(245,197,24,.04); }
+  .st-tbl tr.q td:first-child { color: #f5c518; font-weight: 700; }
+  .st-tbl .pts { font-weight: 700; color: #fff; }
+  .q-tri { color: #f5c518; font-size: .6rem; margin-right: .3rem; }
+
+  /* qualified pills */
+  .q-pills { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.25rem; }
+  .q-pill {
+    padding: .22rem .7rem; background: #0a1520; border: 1px solid #1a3352;
+    border-radius: 2px; font-size: .7rem; font-weight: 700;
+    color: #f5c518; letter-spacing: .04em; text-transform: uppercase;
+  }
+
+  /* knockout */
+  .ko-round-hdr {
+    display: inline-block; padding: .32rem .75rem; margin-top: 1.25rem;
+    background: #0a1520; border: 1px solid #1a3352; border-bottom: none;
+    border-radius: 4px 4px 0 0; font-size: .68rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: #f5c518;
+  }
+  .ko-table { width: 100%; border-collapse: collapse; margin-bottom: 0; font-size: .84rem; border: 1px solid #1a3352; border-radius: 0 4px 4px 4px; }
+  .ko-table thead tr { border-bottom: 1px solid #1a3352; }
+  .ko-table th {
+    padding: .38rem .7rem; text-align: left; color: #2a4a6a;
+    font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .ko-table th.c { text-align: center; }
+  .ko-table tbody tr { border-bottom: 1px solid #0f1f30; }
+  .ko-table tbody tr:nth-child(odd)  { background: #0d1b2a; }
+  .ko-table tbody tr:nth-child(even) { background: #0f2032; }
+  .ko-table td { padding: .48rem .7rem; color: #a0b4c8; }
+  .ko-table td.c { text-align: center; }
+  .ko-win  { color: #4ade80; font-weight: 700; font-size: .8rem; }
+
+  /* champion */
+  .champ-banner {
+    display: none; text-align: center; padding: 2rem 1rem;
+    background: #0a1520; border: 2px solid #f5c518;
+    border-radius: 6px; margin-bottom: 1.5rem;
+  }
+  .champ-icon { font-size: 2.5rem; margin-bottom: .5rem; }
+  .champ-name {
+    font-family: 'Impact', 'Arial Narrow', sans-serif;
+    font-size: 2.2rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: .06em; color: #f5c518;
+  }
+  .champ-sub { font-size: .72rem; color: #4a6fa5; letter-spacing: .12em; text-transform: uppercase; margin-top: .25rem; }
+
+  /* empty */
+  .empty { text-align: center; padding: 2.5rem 1rem; color: #1e3a5c; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; }
+</style>
+
+<div class="sim-wrap">
+
+  <h1 class="sim-title">WC <span>2026</span> Simulator</h1>
+  <p class="sim-sub">Group Stage &amp; Knockout · Step by step</p>
+
+  <div class="ctrl-bar">
+    <button class="btn btn-start"   onclick="startGroupStage()">▶ Start Group Stage</button>
+    <button class="btn btn-next"    id="btn-next"    onclick="nextGroupRound()"    disabled>Next Round →</button>
+    <button class="btn btn-ko"      id="btn-ko"      onclick="startKnockout()"     disabled>Start Knockout</button>
+    <button class="btn btn-ko-next" id="btn-ko-next" onclick="nextKnockoutMatch()" disabled>Next KO Match →</button>
+    <span id="status-pill" class="status-pill"></span>
+  </div>
+  <div id="err"></div>
+
+  <div class="champ-banner" id="champ-banner">
+    <div class="champ-icon">🏆</div>
+    <div class="champ-name" id="champ-name"></div>
+    <div class="champ-sub">World Cup 2026 Champions</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('results',this)">Results</button>
+    <button class="tab-btn"        onclick="switchTab('standings',this)">Standings</button>
+    <button class="tab-btn"        onclick="switchTab('knockout',this)">Knockout</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-results">
+    <div id="results-feed"><div class="empty">Press Start Group Stage to begin</div></div>
+  </div>
+
+  <div class="tab-panel" id="panel-standings">
+    <div id="qualified-section" style="display:none">
+      <div class="sec-label">Teams Advanced</div>
+      <div class="q-pills" id="q-pills"></div>
+    </div>
+    <div class="sec-label">Group Standings</div>
+    <div class="groups-grid" id="standings-grid">
+      <div class="empty">Standings will appear here</div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-knockout">
+    <div id="ko-feed"><div class="empty">Complete the group stage first</div></div>
+  </div>
+
+</div>
+
 <script>
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+const $ = id => document.getElementById(id);
+const err = msg => { $('err').textContent = msg || ''; };
 
-console.log("JS loaded")
-
-function show(data) {
-    const out = document.getElementById("output");
-    out.textContent = JSON.stringify(data, null, 2);
+function setStatus(text, done=false) {
+  const p = $('status-pill');
+  p.textContent = text; p.style.display = text ? 'inline-block' : 'none';
+  p.className = 'status-pill' + (done ? ' done' : '');
 }
 
-/* -----------------------------
-   GROUP STAGE
------------------------------- */
+function post(url, body={}) {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrfToken },
+    body: JSON.stringify(body)
+  }).then(r => r.json());
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  $('panel-' + name).classList.add('active'); btn.classList.add('active');
+}
 
 function startGroupStage() {
-    fetch("/start_group_stage", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ follow: "Portugal" })   // optional
-    })
-    .then(r => r.json())
-    .then(show);
+  err();
+  post('/start_group_stage', { follow: 'Portugal' }).then(d => {
+    if (d.error) { err(d.error); return; }
+    $('btn-next').disabled = false;
+    document.querySelector('.btn-start').disabled = true;  // prevent restart mid-sim
+    $('results-feed').innerHTML = '<div class="empty">Click Next Round to simulate</div>';
+    $('standings-grid').innerHTML = ''; $('qualified-section').style.display = 'none';
+    setStatus('Round 0');
+  });
 }
 
 function nextGroupRound() {
-    fetch("/next_group_round")
-        .then(r => r.json())
-        .then(show);
+  err(); $('btn-next').disabled = true;
+  post('/next_group_round').then(d => {
+    console.log('next_group_round response:', d);
+
+    const finished = d.finished === true || d.done === true;
+
+    if (!finished) {
+      setStatus('Round ' + d.round);
+      prependMatches(d.round, d.matches || d.results || []);
+      if (d.standings) renderStandings(d.standings);
+      $('btn-next').disabled = false;
+    } else {
+      // group stage complete
+      setStatus('Group Stage Complete', true);
+      $('btn-next').disabled = true;
+      document.querySelector('.btn-start').disabled = true;
+      $('btn-ko').disabled = false;
+      if (d.qualified) renderQualified(d.qualified);
+    }
+  });
 }
 
-/* -----------------------------
-   KNOCKOUT STAGE
------------------------------- */
-
 function startKnockout() {
-    fetch("/start_knockout", {
-        method: "POST"
-    })
-    .then(r => r.json())
-    .then(show);
+  err();
+  post('/start_knockout').then(d => {
+    if (d.error) { err(d.error); return; }
+    $('btn-ko-next').disabled = false;
+    $('ko-feed').innerHTML = '<div class="empty">Click Next KO Match to simulate</div>';
+    setStatus('Knockout Started');
+    switchTab('knockout', document.querySelectorAll('.tab-btn')[2]);
+  });
 }
 
 function nextKnockoutMatch() {
-    fetch("/next_knockout_match")
-        .then(r => r.json())
-        .then(show);
+  err();
+  $('btn-ko-next').disabled = true;
+
+  fetch('/next_knockout_match')
+    .then(r => r.json())
+    .then(d => {
+      console.log('KO RAW:', d);
+
+      if (d.error) {
+        err(d.error);
+        return;
+      }
+
+      if (d.match) {
+        appendKoMatch(d.match.round, d.match);
+      }
+
+      if (d.done === true || d.finished === true) {
+        if (d.champion) {
+          $('champ-name').textContent = d.champion.replace(/_/g, ' ');
+          $('champ-banner').style.display = 'block';
+        }
+        setStatus('Tournament Complete', true);
+        return;
+      }
+
+      $('btn-ko-next').disabled = false;
+      setStatus(d.match?.round || d.round || 'KO in progress');
+    });
+}
+
+
+
+
+
+
+function evHtml(timeline) {
+  return (timeline || []).filter(e => e.type !== 'halftime').map(e => {
+    if (e.type === 'goal')   return `<span class="ev-goal">⚽ ${e.minute}' ${e.scorer||''}</span>`;
+    if (e.type === 'yellow') return `<span class="ev-yellow">🟨 ${e.minute}' ${e.player||''}</span>`;
+    if (e.type === 'red')    return `<span class="ev-red">🟥 ${e.minute}' ${e.player||''}</span>`;
+    return '';
+  }).filter(Boolean).join(' &nbsp;');
+}
+
+function prependMatches(round, matches) {
+  const feed = $('results-feed');
+  if (feed.querySelector('.empty')) feed.innerHTML = '';
+  const rows = matches.map((m, i) => {
+    const sc = m.score || {};
+    const hg = sc[m.home] ?? 0, ag = sc[m.away] ?? 0;
+    const hw = hg > ag, aw = ag > hg;
+    const msgs = (m.follow_messages || m.messages || []).join(' · ');
+    return `<tr class="${m.follow_highlight ? 'follow-row' : ''}">
+      <td><span class="grp-tag">${(m.group||'').replace(/_/g,' ')}</span></td>
+      <td class="${hw?'t-win':aw?'t-lose':''}">${(m.home||'').replace(/_/g,' ')}${m.follow_highlight?'<span class="follow-star">★</span>':''}</td>
+      <td class="score-cell c">${hg} – ${ag}</td>
+      <td class="${aw?'t-win':hw?'t-lose':''}">${(m.away||'').replace(/_/g,' ')}</td>
+      <td class="ev-cell">${evHtml(m.timeline)}${msgs?'<br><span class="follow-msg">'+msgs+'</span>':''}</td>
+    </tr>`;
+  }).join('');
+  const block = document.createElement('div');
+  block.innerHTML = `<div class="sec-label">Round ${round}</div>
+    <table class="match-table">
+      <thead><tr><th>Group</th><th>Home</th><th class="c">Score</th><th>Away</th><th>Events</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  feed.prepend(block);
+}
+
+let _currentKoRound = null;
+function normalizeRound(r) {
+  return (r || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function appendKoMatch(roundName, m) {
+  const feed = $('ko-feed');
+  if (feed.querySelector('.empty')) feed.innerHTML = '';
+
+  const sc  = m.score || {};
+  const hn  = m.home || '';
+  const an  = m.away || '';
+  const hg  = parseInt(sc[hn] ?? 0);
+  const ag  = parseInt(sc[an] ?? 0);
+  const win = m.winner || (hg > ag ? hn : an);
+
+  const row = `<tr>
+    <td class="${hg>ag?'t-win':ag>hg?'t-lose':''}">${hn.replace(/_/g,' ')}</td>
+    <td class="score-cell c">${hg} – ${ag}</td>
+    <td class="${ag>hg?'t-win':hg>ag?'t-lose':''}">${an.replace(/_/g,' ')}</td>
+    <td class="ko-win">✓ ${win.replace(/_/g,' ')}</td>
+  </tr>`;
+
+  const norm = normalizeRound(roundName);
+
+  // same round → append to existing table
+  if (normalizeRound(_currentKoRound) === norm) {
+    const tbody = feed.querySelector(`.ko-table[data-round="${norm}"] tbody`);
+    if (tbody) tbody.insertAdjacentHTML('beforeend', row);
+    return;
+  }
+
+  // new round → create new table
+  _currentKoRound = roundName;
+
+  const block = document.createElement('div');
+  block.innerHTML = `
+    <div class="ko-round-hdr">${roundName}</div>
+    <table class="ko-table" data-round="${norm}">
+      <thead><tr><th>Home</th><th class="c">Score</th><th>Away</th><th>Winner</th></tr></thead>
+      <tbody>${row}</tbody>
+    </table>
+    <div style="margin-bottom:1.25rem"></div>
+  `;
+
+  feed.prepend(block);
+}
+
+
+function renderStandings(standings) {
+  $('standings-grid').innerHTML = Object.entries(standings).map(([gk, rows]) => {
+    const trs = rows.map((r, i) => {
+      const name = (r[0]||r.team||'').replace(/_/g,' ');
+      const st = r[1]||r;
+      const pts=st.pts??0, gf=st.gf??0, ga=st.ga??0, gd=st.gd??0;
+      const q = i < 2;
+      return `<tr class="${q?'q':''}">
+        <td>${q?'<span class="q-tri">▲</span>':''}${name}</td>
+        <td>${gf}</td><td>${ga}</td>
+        <td>${gd>=0?'+'+gd:gd}</td>
+        <td class="pts">${pts}</td>
+      </tr>`;
+    }).join('');
+    return `<div class="g-card">
+      <div class="g-card-hdr">${gk.replace(/_/g,' ')}</div>
+      <table class="st-tbl">
+        <thead><tr><th>Team</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>${trs}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+function renderQualified(qualified) {
+  $('q-pills').innerHTML = Object.entries(qualified)
+    .flatMap(([gk,teams]) => teams.map(t =>
+      `<span class="q-pill">${gk.replace(/_/g,' ')}: ${t.replace(/_/g,' ')}</span>`
+    )).join('');
+  $('qualified-section').style.display = 'block';
+}
+
+function prependKo(roundName, results) {
+  const feed = $('ko-feed');
+  if (feed.querySelector('.empty')) feed.innerHTML = '';
+  const rows = results.map((m, i) => {
+    const sc = m.score || {};
+    const hn = m.home||Object.keys(sc)[0]||'';
+    const an = m.away||Object.keys(sc)[1]||'';
+    const hg = parseInt(sc[hn]??0), ag = parseInt(sc[an]??0);
+    const win = hg > ag ? hn : an;
+    return `<tr>
+      <td class="${hg>ag?'t-win':ag>hg?'t-lose':''}">${hn.replace(/_/g,' ')}</td>
+      <td class="score-cell c">${hg} – ${ag}</td>
+      <td class="${ag>hg?'t-win':hg>ag?'t-lose':''}">${an.replace(/_/g,' ')}</td>
+      <td class="ko-win">✓ ${win.replace(/_/g,' ')}</td>
+    </tr>`;
+  }).join('');
+  const block = document.createElement('div');
+  block.innerHTML = `<div class="ko-round-hdr">${roundName||'Knockout'}</div>
+    <table class="ko-table">
+      <thead><tr><th>Home</th><th class="c">Score</th><th>Away</th><th>Winner</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="margin-bottom:1.25rem"></div>`;
+  feed.prepend(block);
 }
 </script>
-
-
 
 {% endblock %}

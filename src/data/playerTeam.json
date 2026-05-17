@@ -1,38 +1,38 @@
-{"SosoFC": {
-            "replacing":"United_States",
-            "starting_xi": {
-                "Goalkeeper": "L. Malagón",
-                "Defenders": [
-                    "O. Pineda",
-                    "C. Montes",
-                    "J. Gallardo",
-                    "J. Vásquez"
-                ],
-                "Midfielders": [
-                    "J. Quiñones",
-                    "E. Álvarez",
-                    "R. Alvarado"
-                ],
-                "Forwards": [
-                    "S. Giménez",
-                    "G. Berterame",
-                    "A. Vega"
-                ]
-            },
-            "bench": [
-                "E. Sánchez",
-                "H. Lozano",
-                "R. Jiménez",
-                "D. Lainez",
-                "C. Rodríguez",
-                "M. Ruiz",
-                "J. Araujo",
-                "J. Sánchez",
-                "E. Lira",
-                "C. Huerta",
-                "J. Orozco Chiquete",
-                "M. Chávez",
-                "J. Sánchez Purata",
-                "R. Huescas"
+{
+    "jn": {
+        "replacing": "Germany",
+        "starting_xi": {
+            "Goalkeeper": "Z. Suzuki",
+            "Defenders": [
+                "C. Carter-Vickers",
+                "K. Ayhan",
+                "A. Johnston",
+                "A. Murillo"
+            ],
+            "Midfielders": [
+                "E. Guessand",
+                "J. Rodr\u00edguez",
+                "M. Uribe"
+            ],
+            "Forwards": [
+                "E. Cavani",
+                "C. Adams",
+                "J. Dur\u00e1n"
             ]
-        }}
+        },
+        "bench": [
+            "P. Ciss",
+            "H. Aouar",
+            "R. Hatate",
+            "A. Castro-Montes",
+            "Z. Tripi\u0107",
+            "A. Nusa",
+            "I. Hien",
+            "E. Diouf",
+            "K. Itakura",
+            "J. Sargent",
+            "B. Embolo",
+            "\u00c9der Milit\u00e3o"
+        ]
+    }
+}
