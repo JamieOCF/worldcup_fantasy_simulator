@@ -1,6 +1,60 @@
 {% extends "base.html" %}
 
+{% block main %}
+<button onclick="startGroupStage()">Start Group Stage</button>
+<button onclick="nextGroupRound()">Next Group Round</button>
+<button onclick="startKnockout()">Start Knockout Stage</button>
+<button onclick="nextKnockoutMatch()">Next Knockout Match</button>
 
-{% block main%}
+<div id="output"></div>
+<script>
+
+console.log("JS loaded")
+
+function show(data) {
+    const out = document.getElementById("output");
+    out.textContent = JSON.stringify(data, null, 2);
+}
+
+/* -----------------------------
+   GROUP STAGE
+------------------------------ */
+
+function startGroupStage() {
+    fetch("/start_group_stage", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ follow: "Portugal" })   // optional
+    })
+    .then(r => r.json())
+    .then(show);
+}
+
+function nextGroupRound() {
+    fetch("/next_group_round")
+        .then(r => r.json())
+        .then(show);
+}
+
+/* -----------------------------
+   KNOCKOUT STAGE
+------------------------------ */
+
+function startKnockout() {
+    fetch("/start_knockout", {
+        method: "POST"
+    })
+    .then(r => r.json())
+    .then(show);
+}
+
+function nextKnockoutMatch() {
+    fetch("/next_knockout_match")
+        .then(r => r.json())
+        .then(show);
+}
+</script>
+
+
 
 {% endblock %}

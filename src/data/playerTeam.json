@@ -1,0 +1,38 @@
+{"SosoFC": {
+            "replacing":"United_States",
+            "starting_xi": {
+                "Goalkeeper": "L. Malagón",
+                "Defenders": [
+                    "O. Pineda",
+                    "C. Montes",
+                    "J. Gallardo",
+                    "J. Vásquez"
+                ],
+                "Midfielders": [
+                    "J. Quiñones",
+                    "E. Álvarez",
+                    "R. Alvarado"
+                ],
+                "Forwards": [
+                    "S. Giménez",
+                    "G. Berterame",
+                    "A. Vega"
+                ]
+            },
+            "bench": [
+                "E. Sánchez",
+                "H. Lozano",
+                "R. Jiménez",
+                "D. Lainez",
+                "C. Rodríguez",
+                "M. Ruiz",
+                "J. Araujo",
+                "J. Sánchez",
+                "E. Lira",
+                "C. Huerta",
+                "J. Orozco Chiquete",
+                "M. Chávez",
+                "J. Sánchez Purata",
+                "R. Huescas"
+            ]
+        }}

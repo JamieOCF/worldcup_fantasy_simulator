@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+
+{% block main%}
+<div class="ns-page">
+ 
+  {# ── Background pitch lines (inherited from global aesthetic) ── #}
+  <div class="ns-bg-lines" aria-hidden="true"></div>
+ 
+  {# ═══════════════════════════════════════════
+     STEP 1 — Overwrite Warning Modal
+     Shown first if save_state is 1 or 2.
+     If save_state is 0, this is skipped via JS.
+  ═══════════════════════════════════════════ #}
+  {% if save_state in (1, 2) %}
+  <div class="ns-overlay" id="overlay-warn" role="dialog" aria-modal="true" aria-labelledby="warn-title">
+    <div class="ns-modal ns-modal--warn" id="modal-warn">
+ 
+      <div class="ns-modal__icon" aria-hidden="true">⚠</div>
+ 
+      <h2 class="ns-modal__title" id="warn-title">Overwrite Save?</h2>
+      <p class="ns-modal__body">
+        You have an existing save —
+        <strong class="text-gold">{{ save_team_name }}</strong>.
+        Starting a new save will permanently overwrite it.
+      </p>
+ 
+      <div class="ns-modal__actions">
+        <a href="{{ url_for('menu.fantasy_menu') }}" class="btn btn--ghost">Cancel</a>
+        <button class="btn btn--danger" id="btn-confirm-overwrite">
+          Yes, overwrite
+        </button>
+      </div>
+ 
+    </div>
+  </div>
+  {% endif %}
+ 
+  {# ═══════════════════════════════════════════
+     STEP 2 — Team Name Input
+  ═══════════════════════════════════════════ #}
+  <div
+    class="ns-overlay {% if save_state in (1, 2) %}ns-overlay--hidden{% endif %}"
+    id="overlay-name"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="name-title"
+  >
+    <div class="ns-modal ns-modal--name" id="modal-name">
+ 
+      <p class="ns-modal__step">Step 1 of 2</p>
+      <h2 class="ns-modal__title" id="name-title">Name Your Team</h2>
+      <p class="ns-modal__body">Choose wisely - this cannot be changed later.</p>
+ 
+      <form
+        method="POST"
+        action="{{ url_for('team_name') }}"
+        id="form-team-name"
+        novalidate
+      >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+ 
+        <div class="ns-field">
+          <input
+            type="text"
+            id="team-name-input"
+            name="team_name"
+            class="ns-input"
+            placeholder="e.g. FC Invincible"
+            maxlength="40"
+            autocomplete="off"
+            required
+            autofocus
+          >
+          <label class="ns-input__label" for="team-name-input">Team Name</label>
+          <span class="ns-input__counter"><span id="char-count">0</span> / 40</span>
+          <p class="ns-field__error" id="name-error" role="alert" hidden>
+            Please enter a team name.
+          </p>
+        </div>
+ 
+        <div class="ns-modal__actions">
+          <a href="{{ url_for('fantasy') }}" class="btn btn--ghost">Cancel</a>
+          <button type="submit" class="btn btn--primary" id="btn-next">
+            Choose Squad →
+          </button>
+        </div>
+ 
+      </form>
+ 
+    </div>
+  </div>
+ 
+</div>
+{% endblock %}
+
+
+{% block scriptblock %}
+<script>
+(function () {
+  /* ── Overwrite confirmation ── */
+  const btnConfirm   = document.getElementById('btn-confirm-overwrite');
+  const overlayWarn  = document.getElementById('overlay-warn');
+  const overlayName  = document.getElementById('overlay-name');
+ 
+  if (btnConfirm) {
+    btnConfirm.addEventListener('click', () => {
+      /* animate out the warning modal, animate in the name modal */
+      overlayWarn.classList.add('ns-overlay--exit');
+      overlayWarn.addEventListener('animationend', () => {
+        overlayWarn.classList.add('ns-overlay--hidden');
+        overlayName.classList.remove('ns-overlay--hidden');
+        /* trigger entrance animation */
+        overlayName.classList.add('ns-overlay--enter');
+        document.getElementById('team-name-input')?.focus();
+      }, { once: true });
+    });
+  }
+ 
+  /* ── Character counter ── */
+  const input     = document.getElementById('team-name-input');
+  const counter   = document.getElementById('char-count');
+  const nameError = document.getElementById('name-error');
+ 
+  if (input && counter) {
+    input.addEventListener('input', () => {
+      const len = input.value.length;
+      counter.textContent = len;
+      counter.parentElement.classList.toggle('ns-input__counter--near', len >= 32);
+      if (len > 0 && nameError) nameError.hidden = true;
+    });
+  }
+ 
+  /* ── Client-side validation ── */
+  const form = document.getElementById('form-team-name');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      const val = input?.value.trim();
+      if (!val) {
+        e.preventDefault();
+        if (nameError) nameError.hidden = false;
+        input?.focus();
+      }
+    });
+  }
+})();
+</script>
+{% endblock %}

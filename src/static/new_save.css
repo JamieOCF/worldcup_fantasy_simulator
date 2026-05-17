@@ -1,0 +1,279 @@
+/* ============================================================
+   new_save.css
+   New Save flow — warning modal + team name input.
+   Extends styles.css tokens; never redefines base variables.
+   ============================================================ */
+
+/* ── Page shell ─────────────────────────────────────────────── */
+.ns-page {
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Pitch-line texture */
+.ns-bg-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 59px,
+      rgba(255,255,255,0.016) 59px,
+      rgba(255,255,255,0.016) 60px
+    );
+}
+
+/* ── Overlay (backdrop) ─────────────────────────────────────── */
+.ns-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(5, 13, 20, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ns-overlay-in 0.35s var(--ease-out) both;
+}
+
+.ns-overlay--hidden {
+  display: none !important;
+}
+
+/* Exit animation (JS adds this class) */
+.ns-overlay--exit {
+  animation: ns-overlay-out 0.25s var(--ease-in) forwards;
+}
+
+/* Entrance animation for the name modal (JS adds this class) */
+.ns-overlay--enter .ns-modal {
+  animation: ns-modal-in 0.4s var(--ease-snappy) both;
+}
+
+@keyframes ns-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ns-overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes ns-modal-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ── Modal card ─────────────────────────────────────────────── */
+.ns-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: var(--gradient-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-8) var(--space-8);
+  box-shadow: var(--shadow-lg), var(--shadow-inset);
+  overflow: hidden;
+
+  animation: ns-modal-in 0.45s var(--ease-snappy) 0.05s both;
+}
+
+/* Gold shimmer top line */
+.ns-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gradient-gold);
+}
+
+/* Danger variant — red shimmer */
+.ns-modal--warn::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-warning) 30%,
+    var(--color-danger)  60%,
+    transparent
+  );
+}
+
+/* ── Modal content ── */
+.ns-modal__step {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  margin-bottom: var(--space-3);
+}
+
+.ns-modal__icon {
+  font-size: 2.4rem;
+  margin-bottom: var(--space-4);
+  display: block;
+  /* amber warning tone */
+  filter: sepia(1) saturate(3) hue-rotate(5deg);
+  animation: ns-icon-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ns-icon-pulse {
+  0%, 100% { transform: scale(1);    opacity: 1;    }
+  50%       { transform: scale(1.08); opacity: 0.75; }
+}
+
+.ns-modal__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  line-height: 1;
+  margin-bottom: var(--space-4);
+}
+
+.ns-modal--warn .ns-modal__title {
+  /* warm tint for danger context */
+  color: var(--color-warning);
+}
+
+.ns-modal__body {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.65;
+  margin-bottom: var(--space-8);
+}
+
+/* ── Action row ─── */
+.ns-modal__actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-top: var(--space-6);
+}
+
+/* ── Danger button (overwrite confirm) ─── */
+.btn--danger {
+  background: linear-gradient(135deg, var(--color-warning), var(--color-danger));
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semi);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  cursor: pointer;
+  transition: filter var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+  box-shadow: 0 0 18px rgba(224, 69, 69, 0.25);
+}
+
+.btn--danger:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+/* ── Team name field ────────────────────────────────────────── */
+.ns-field {
+  position: relative;
+  margin-bottom: var(--space-2);
+}
+
+.ns-input {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: 0.04em;
+  padding: var(--space-6) var(--space-4) var(--space-3);
+  outline: none;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow   var(--duration-base) var(--ease-out);
+  /* hide browser default autofill styling */
+  -webkit-text-fill-color: var(--color-white);
+}
+
+.ns-input::placeholder {
+  color: var(--color-faint);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  letter-spacing: 0.02em;
+}
+
+.ns-input:focus {
+  border-color: var(--color-gold-muted);
+  box-shadow: 0 0 0 3px rgba(240, 192, 64, 0.12),
+              var(--shadow-gold);
+}
+
+/* Floating label */
+.ns-input__label {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold-muted);
+  pointer-events: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.ns-input:focus ~ .ns-input__label {
+  color: var(--color-gold);
+}
+
+/* Character counter */
+.ns-input__counter {
+  position: absolute;
+  bottom: var(--space-2);
+  right: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-faint);
+  pointer-events: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.ns-input__counter--near {
+  color: var(--color-warning);
+}
+
+/* Validation error */
+.ns-field__error {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-danger);
+  letter-spacing: 0.04em;
+  animation: ns-modal-in 0.2s var(--ease-out) both;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .ns-modal {
+    padding: var(--space-8) var(--space-5) var(--space-6);
+  }
+
+  .ns-modal__actions {
+    flex-direction: column-reverse;
+  }
+
+  .ns-modal__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

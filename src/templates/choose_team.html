@@ -1,0 +1,545 @@
+{% extends "base.html" %}
+
+
+{% block main %}
+<div class="ct-page" id="ct-page">
+
+  {# ── Top bar ── #}
+  <div class="ct-topbar">
+    <div class="ct-topbar__team">
+      Squad — <span>{{ team_name }}</span>
+    </div>
+
+    <div class="ct-formation-group">
+      <span class="ct-formation-label">Formation</span>
+      <select class="ct-formation-select" id="formation-select">
+        {% for f in formations %}
+          <option value="{{ f }}" {% if f == '4-3-3' %}selected{% endif %}>{{ f }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="ct-budget">
+      <span class="ct-budget__label">Budget</span>
+      <span class="ct-budget__value" id="budget-display">£{{ budget }}m</span>
+    </div>
+
+    <div class="ct-count">
+      <span class="ct-count__num" id="squad-count">0</span> / 25 players
+    </div>
+
+    <button class="ct-confirm-btn" id="confirm-btn" disabled>
+      Confirm Squad →
+    </button>
+  </div>
+
+  {# ── Body ── #}
+  <div class="ct-body">
+
+    {# ════════════════ LEFT: PITCH ════════════════ #}
+    <div class="ct-pitch-panel" id="pitch-panel">
+
+      {# Starters #}
+      <p class="ct-section-label">Starting XI</p>
+
+      {# GK row — always 1 #}
+      <div class="ct-row" id="row-gk-start">
+        <div class="ct-slot" data-pos="GK" data-slot-id="gk-0" data-is-bench="false">
+          <div class="ct-slot__circle"><span class="ct-slot__pos-label">GK</span></div>
+          <span class="ct-slot__name"></span>
+          <span class="ct-slot__cost"></span>
+        </div>
+      </div>
+
+      {# DEF, MID, FW rows rendered by JS based on formation #}
+      <div class="ct-row" id="row-def-start"></div>
+      <div class="ct-row" id="row-mid-start"></div>
+      <div class="ct-row" id="row-fwd-start"></div>
+
+      <div class="ct-bench-divider"></div>
+      <p class="ct-section-label">Substitutes (14)</p>
+
+      {# GK bench — always 2 #}
+      <div class="ct-row" id="row-gk-bench">
+        <div class="ct-slot" data-pos="GK" data-slot-id="gk-bench-0" data-is-bench="true">
+          <div class="ct-slot__circle"><span class="ct-slot__pos-label">GK</span></div>
+          <span class="ct-slot__name"></span>
+          <span class="ct-slot__cost"></span>
+        </div>
+        <div class="ct-slot" data-pos="GK" data-slot-id="gk-bench-1" data-is-bench="true">
+          <div class="ct-slot__circle"><span class="ct-slot__pos-label">GK</span></div>
+          <span class="ct-slot__name"></span>
+          <span class="ct-slot__cost"></span>
+        </div>
+      </div>
+
+      {# Outfield bench grid — rendered by JS #}
+      <div class="ct-bench-grid" id="bench-grid"></div>
+
+    </div>
+
+    {# ════════════════ RIGHT: PICKER ════════════════ #}
+    <aside class="ct-picker" id="ct-picker">
+      <div class="ct-picker__header">
+        <p class="ct-picker__title" id="picker-title">All Players</p>
+        <p class="ct-picker__subtitle" id="picker-subtitle">Select a position slot on the pitch to filter.</p>
+        <button class="ct-picker__close" id="picker-close" aria-label="Clear filter">✕</button>
+      </div>
+
+      <div class="ct-picker__search-wrap">
+        <input
+          type="text"
+          class="ct-picker__search"
+          id="picker-search"
+          placeholder="Search by name or country…"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="ct-picker__table-head">
+        <span class="ct-picker__th">Name</span>
+        <span class="ct-picker__th">Pos</span>
+        <span class="ct-picker__th">Country</span>
+        <span class="ct-picker__th ct-picker__th--right">Cost</span>
+      </div>
+
+      <div class="ct-picker__list" id="picker-list"></div>
+    </aside>
+
+  </div>{# /ct-body #}
+
+  {# Hidden form — submitted when squad is confirmed #}
+  <form id="squad-form" method="POST" action="{{ url_for('submit_squad') }}" style="display:none;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="squad_json"  id="squad-json-input">
+    <input type="hidden" name="formation"   id="formation-input">
+  </form>
+
+</div>{# /ct-page #}
+{% endblock %}
+
+{% block scriptblock %}
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════
+     CONFIGURATION
+  ═══════════════════════════════════════════════════════════ */
+  const FORMATIONS = {
+    '5-4-1': { def:5, mid:4, fwd:1, bench:{ def:3, mid:5, fwd:4 } },
+    '5-3-2': { def:5, mid:3, fwd:2, bench:{ def:3, mid:6, fwd:3 } },
+    '4-5-1': { def:4, mid:5, fwd:1, bench:{ def:4, mid:4, fwd:4 } },
+    '4-4-2': { def:4, mid:4, fwd:2, bench:{ def:4, mid:5, fwd:3 } },
+    '4-3-3': { def:4, mid:3, fwd:3, bench:{ def:4, mid:6, fwd:2 } },
+    '3-5-2': { def:3, mid:5, fwd:2, bench:{ def:5, mid:4, fwd:3 } },
+    '3-4-3': { def:3, mid:4, fwd:3, bench:{ def:5, mid:5, fwd:2 } },
+  };
+
+  const POS_LABEL = { GK:'GK', DEF:'DEF', MID:'MID', FW:'FW' };
+
+  /* ═══════════════════════════════════════════════════════════
+     STATE
+  ═══════════════════════════════════════════════════════════ */
+  let budget       = parseFloat('{{ budget }}');
+  let formation    = '4-3-3';
+  let allPlayers   = [];   // fetched once
+  let squad        = {};   // slotId → playerObj
+  let activeSlotId = null; // null = no slot selected (show all positions)
+
+  /* ═══════════════════════════════════════════════════════════
+     DOM REFS
+  ═══════════════════════════════════════════════════════════ */
+  const formationSelect = document.getElementById('formation-select');
+  const budgetDisplay   = document.getElementById('budget-display');
+  const squadCountEl    = document.getElementById('squad-count');
+  const confirmBtn      = document.getElementById('confirm-btn');
+  const pickerTitle     = document.getElementById('picker-title');
+  const pickerSubtitle  = document.getElementById('picker-subtitle');
+  const pickerClose     = document.getElementById('picker-close');
+  const pickerSearch    = document.getElementById('picker-search');
+  const pickerList      = document.getElementById('picker-list');
+  const rowDef          = document.getElementById('row-def-start');
+  const rowMid          = document.getElementById('row-mid-start');
+  const rowFwd          = document.getElementById('row-fwd-start');
+  const benchGrid       = document.getElementById('bench-grid');
+  const squadForm       = document.getElementById('squad-form');
+  const squadJsonInput  = document.getElementById('squad-json-input');
+  const formationInput  = document.getElementById('formation-input');
+
+  /* ═══════════════════════════════════════════════════════════
+     HELPERS
+  ═══════════════════════════════════════════════════════════ */
+  function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase();
+  }
+
+  function formatCost(cost) {
+    return '£' + parseFloat(cost).toFixed(1) + 'm';
+  }
+
+  function remainingBudget() {
+    const spent = Object.values(squad).reduce((s, p) => s + p.cost, 0);
+    return parseFloat((budget - spent).toFixed(1));
+  }
+
+  function updateBudgetDisplay() {
+    const rem = remainingBudget();
+    budgetDisplay.textContent = formatCost(rem);
+    budgetDisplay.className   = 'ct-budget__value';
+    if (rem < 5)       budgetDisplay.classList.add('ct-budget__value--danger');
+    else if (rem < 15) budgetDisplay.classList.add('ct-budget__value--low');
+  }
+
+  function updateSquadCount() {
+    const count = Object.keys(squad).length;
+    squadCountEl.textContent = count;
+    confirmBtn.disabled = (count !== 25);
+  }
+
+  function playersInSquad() {
+    return new Set(Object.values(squad).map(p => p.short_name));
+  }
+
+  /* Count how many players of a given nationality are in squad,
+     excluding the current active slot's player (so swapping isn't double-counted). */
+  function natCount(nationality) {
+    const currentInSlot = squad[activeSlotId];
+    return Object.values(squad).filter(p =>
+      p.nationality === nationality &&
+      (!currentInSlot || p.short_name !== currentInSlot.short_name)
+    ).length;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     PITCH RENDERING
+  ═══════════════════════════════════════════════════════════ */
+  function makeSlot(slotId, pos, isBench = false) {
+    const el = document.createElement('div');
+    el.className       = 'ct-slot';
+    el.dataset.pos     = pos;
+    el.dataset.slotId  = slotId;
+    el.dataset.isBench = isBench;
+    el.innerHTML = `
+      <div class="ct-slot__circle">
+        <span class="ct-slot__pos-label">${POS_LABEL[pos]}</span>
+      </div>
+      <span class="ct-slot__name"></span>
+      <span class="ct-slot__cost"></span>
+    `;
+    el.addEventListener('click', () => handleSlotClick(slotId, pos));
+    return el;
+  }
+
+  function renderFormation(f) {
+    const cfg = FORMATIONS[f];
+
+    rowDef.innerHTML = '';
+    rowMid.innerHTML = '';
+    rowFwd.innerHTML = '';
+    for (let i = 0; i < cfg.def; i++) rowDef.appendChild(makeSlot(`def-${i}`, 'DEF'));
+    for (let i = 0; i < cfg.mid; i++) rowMid.appendChild(makeSlot(`mid-${i}`, 'MID'));
+    for (let i = 0; i < cfg.fwd; i++) rowFwd.appendChild(makeSlot(`fwd-${i}`, 'FW'));
+
+    benchGrid.innerHTML = '';
+    const b = cfg.bench;
+    for (let i = 0; i < b.def; i++) benchGrid.appendChild(makeSlot(`bench-def-${i}`, 'DEF', true));
+    for (let i = 0; i < b.mid; i++) benchGrid.appendChild(makeSlot(`bench-mid-${i}`, 'MID', true));
+    for (let i = 0; i < b.fwd; i++) benchGrid.appendChild(makeSlot(`bench-fwd-${i}`, 'FW', true));
+
+    restoreSquadToSlots();
+  }
+
+  function restoreSquadToSlots() {
+    document.querySelectorAll('.ct-slot').forEach(slot => {
+      const sid    = slot.dataset.slotId;
+      const player = squad[sid];
+      if (player) fillSlotEl(slot, player);
+      else        clearSlotEl(slot);
+    });
+  }
+
+  function fillSlotEl(slotEl, player) {
+    slotEl.classList.add('ct-slot--filled');
+    slotEl.querySelector('.ct-slot__circle').innerHTML =
+      `<span class="ct-slot__initials">${initials(player.short_name)}</span>`;
+    slotEl.querySelector('.ct-slot__name').textContent = player.short_name;
+    slotEl.querySelector('.ct-slot__cost').textContent = formatCost(player.cost);
+  }
+
+  function clearSlotEl(slotEl) {
+    const pos = slotEl.dataset.pos;
+    slotEl.classList.remove('ct-slot--filled', 'ct-slot--active', 'ct-slot--just-filled');
+    slotEl.querySelector('.ct-slot__circle').innerHTML =
+      `<span class="ct-slot__pos-label">${POS_LABEL[pos]}</span>`;
+    slotEl.querySelector('.ct-slot__name').textContent = '';
+    slotEl.querySelector('.ct-slot__cost').textContent = '';
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SLOT CLICK — select slot or deselect if clicking same one
+  ═══════════════════════════════════════════════════════════ */
+  function handleSlotClick(slotId, pos) {
+    // Clicking the already-active slot deselects it → show all
+    if (activeSlotId === slotId) {
+      deactivateSlot();
+      return;
+    }
+
+    // Activate new slot
+    document.querySelectorAll('.ct-slot--active').forEach(s => s.classList.remove('ct-slot--active'));
+    const slotEl = document.querySelector(`[data-slot-id="${slotId}"]`);
+    if (slotEl) slotEl.classList.add('ct-slot--active');
+
+    activeSlotId = slotId;
+
+    const posNames = { GK:'Goalkeepers', DEF:'Defenders', MID:'Midfielders', FW:'Forwards' };
+    pickerTitle.textContent    = posNames[pos] || pos;
+    pickerSubtitle.textContent = squad[slotId]
+      ? 'Click a player to swap.'
+      : 'Click a player to select.';
+
+    pickerSearch.value = '';
+    renderPickerList(pos, '');
+  }
+
+  function deactivateSlot() {
+    document.querySelectorAll('.ct-slot--active').forEach(s => s.classList.remove('ct-slot--active'));
+    activeSlotId = null;
+    pickerTitle.textContent    = 'All Players';
+    pickerSubtitle.textContent = 'Select a position slot on the pitch to filter.';
+    pickerSearch.value = '';
+    renderPickerList(null, '');
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     PLAYER PICKER LIST
+  ═══════════════════════════════════════════════════════════ */
+
+  /*
+    pos: position string to filter by, or null for all positions.
+    When pos is null (no slot selected), clicking a player finds the
+    next available empty slot of that player's position and fills it.
+  */
+  function renderPickerList(pos, search) {
+    const rem           = remainingBudget();
+    const inSquad       = playersInSquad();
+    const currentInSlot = activeSlotId ? squad[activeSlotId] : null;
+    const searchLower   = search.toLowerCase();
+
+    // Filter by position (or show all when no slot selected)
+    let filtered = allPlayers.filter(p =>
+      pos === null || p.position === pos
+    );
+
+    if (searchLower) {
+      filtered = filtered.filter(p =>
+        p.short_name.toLowerCase().includes(searchLower) ||
+        p.nationality.toLowerCase().includes(searchLower)
+      );
+    }
+
+    if (!filtered.length) {
+      pickerList.innerHTML = `<p class="ct-picker__empty">No players found.</p>`;
+      return;
+    }
+
+    // Budget headroom — free up current slot occupant's cost when swapping
+    const availableBudget = rem + (currentInSlot ? currentInSlot.cost : 0);
+
+    pickerList.innerHTML = '';
+    filtered.forEach(p => {
+      const row = document.createElement('div');
+      row.className        = 'ct-player-row';
+      row.dataset.playerId = p.id;
+
+      const isCurrentSlotPlayer = currentInSlot && currentInSlot.short_name === p.short_name;
+      const alreadyInSquad      = inSquad.has(p.short_name) && !isCurrentSlotPlayer;
+      const unaffordable        = p.cost > availableBudget + 0.001;
+      const natBlocked          = !isCurrentSlotPlayer && natCount(p.nationality) >= 3;
+
+      if (isCurrentSlotPlayer) row.classList.add('ct-player-row--selected');
+      if (alreadyInSquad)      row.classList.add('ct-player-row--selected');
+      if (unaffordable)        row.classList.add('ct-player-row--unaffordable');
+      if (natBlocked)          row.classList.add('ct-player-row--nat-blocked');
+
+      row.innerHTML = `
+        <span class="ct-player-row__name">${p.short_name}</span>
+        <span class="ct-player-row__pos">${p.position}</span>
+        <span class="ct-player-row__nat">${p.nationality}</span>
+        <span class="ct-player-row__cost">${formatCost(p.cost)}</span>
+      `;
+
+      const blocked = alreadyInSquad || unaffordable || natBlocked;
+      if (!blocked) {
+        row.addEventListener('click', () => selectPlayer(p));
+      }
+
+      pickerList.appendChild(row);
+    });
+  }
+
+  /* ── Place a player into the active slot (or next free slot) ── */
+  function selectPlayer(player) {
+    let targetSlotId = activeSlotId;
+
+    // If no slot is selected, find the next empty slot for this position
+    if (!targetSlotId) {
+      targetSlotId = findNextEmptySlot(player.position);
+      if (!targetSlotId) return; // no empty slot for this position
+    }
+
+    squad[targetSlotId] = player;
+
+    const slotEl = document.querySelector(`[data-slot-id="${targetSlotId}"]`);
+    if (slotEl) {
+      fillSlotEl(slotEl, player);
+      slotEl.classList.add('ct-slot--just-filled');
+      slotEl.addEventListener('animationend',
+        () => slotEl.classList.remove('ct-slot--just-filled'), { once: true }
+      );
+    }
+
+    updateBudgetDisplay();
+    updateSquadCount();
+
+    // After placing, refresh the picker list with updated state
+    const pos = activeSlotId
+      ? document.querySelector(`[data-slot-id="${activeSlotId}"]`)?.dataset.pos
+      : null;
+    renderPickerList(pos || null, pickerSearch.value);
+
+    // If a slot was active, update its subtitle
+    if (activeSlotId) {
+      const posNames = { GK:'Goalkeepers', DEF:'Defenders', MID:'Midfielders', FW:'Forwards' };
+      const slotPos = document.querySelector(`[data-slot-id="${activeSlotId}"]`)?.dataset.pos;
+      pickerSubtitle.textContent = squad[activeSlotId]
+        ? 'Click a player to swap.'
+        : 'Click a player to select.';
+    }
+  }
+
+  /* Find the first empty slot that accepts the given position.
+     Position mapping: FW slots accept FW players, etc. GK → GK. */
+  function findNextEmptySlot(playerPos) {
+    // Map player position to slot pos attribute
+    const posMap = { GK:'GK', DEF:'DEF', MID:'MID', FW:'FW' };
+    const targetPos = posMap[playerPos];
+
+    const allSlots = Array.from(document.querySelectorAll('.ct-slot'));
+    for (const slot of allSlots) {
+      if (slot.dataset.pos === targetPos && !squad[slot.dataset.slotId]) {
+        return slot.dataset.slotId;
+      }
+    }
+    return null;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     FORMATION CHANGE
+  ═══════════════════════════════════════════════════════════ */
+  function handleFormationChange(newFormation) {
+    const oldCfg = FORMATIONS[formation];
+    const newCfg = FORMATIONS[newFormation];
+
+    ['def','mid','fwd'].forEach(pos => {
+      const oldCount = oldCfg[pos];
+      const newCount = newCfg[pos];
+      if (newCount < oldCount) {
+        for (let i = newCount; i < oldCount; i++) delete squad[`${pos}-${i}`];
+      }
+    });
+
+    ['def','mid','fwd'].forEach(pos => {
+      const oldCount = oldCfg.bench[pos];
+      const newCount = newCfg.bench[pos];
+      if (newCount < oldCount) {
+        for (let i = newCount; i < oldCount; i++) delete squad[`bench-${pos}-${i}`];
+      }
+    });
+
+    // Deactivate slot since layout is being rebuilt
+    activeSlotId = null;
+
+    formation = newFormation;
+    renderFormation(formation);
+    updateBudgetDisplay();
+    updateSquadCount();
+
+    // Reset picker to all-players view
+    deactivateSlot();
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     FETCH PLAYERS
+  ═══════════════════════════════════════════════════════════ */
+  async function fetchPlayers() {
+    try {
+      const res  = await fetch('/api/players');
+      allPlayers = await res.json();
+    } catch (e) {
+      console.error('Failed to fetch players:', e);
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     SUBMIT
+  ═══════════════════════════════════════════════════════════ */
+  confirmBtn.addEventListener('click', () => {
+    if (Object.keys(squad).length !== 25) return;
+
+    const squadArr = Object.entries(squad).map(([slotId, player]) => ({
+      slot_id:     slotId,
+      id:          player.id ?? player.short_name,
+      short_name:  player.short_name,
+      position:    player.position,
+      nationality: player.nationality,
+      cost:        player.cost,
+    }));
+
+    squadJsonInput.value = JSON.stringify(squadArr);
+    formationInput.value = formation;
+    squadForm.submit();
+  });
+
+  /* ═══════════════════════════════════════════════════════════
+     EVENT LISTENERS
+  ═══════════════════════════════════════════════════════════ */
+  formationSelect.addEventListener('change', e => handleFormationChange(e.target.value));
+
+  // Close button now deselects active slot and resets to all players
+  pickerClose.addEventListener('click', deactivateSlot);
+
+  pickerSearch.addEventListener('input', () => {
+    const pos = activeSlotId
+      ? document.querySelector(`[data-slot-id="${activeSlotId}"]`)?.dataset.pos
+      : null;
+    renderPickerList(pos || null, pickerSearch.value);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') deactivateSlot();
+  });
+
+  /* ═══════════════════════════════════════════════════════════
+     INIT
+  ═══════════════════════════════════════════════════════════ */
+  async function init() {
+    await fetchPlayers();
+    renderFormation(formation);
+    updateBudgetDisplay();
+    updateSquadCount();
+
+    // Static GK slots in the HTML don't go through makeSlot(), so wire them up here
+    document.querySelectorAll('[data-pos="GK"]').forEach(el => {
+      el.addEventListener('click', () => handleSlotClick(el.dataset.slotId, 'GK'));
+    });
+
+    // Start in all-players mode
+    deactivateSlot();
+  }
+
+  init();
+})();
+</script>
+{% endblock %}
